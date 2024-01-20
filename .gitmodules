@@ -1,0 +1,4 @@
+[submodule "libraries/E80-Duplicate"]
+	path = libraries/E80-Duplicate
+	url = https://github.com/kavidey/E80-Duplicate.git
+	branch = just-library
