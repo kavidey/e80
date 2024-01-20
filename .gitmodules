@@ -1,0 +1,13 @@
+[submodule "libraries/e80lib"]
+	path = libraries/e80lib
+	url = https://github.com/kavidey/E80-Duplicate.git
+	branch = just-library
+[submodule "libraries/Adafruit_GPS"]
+	path = libraries/Adafruit_GPS
+	url = https://github.com/adafruit/Adafruit_GPS
+[submodule "libraries/LSM303AGR"]
+	path = libraries/LSM303AGR
+	url = https://github.com/stm32duino/LSM303AGR
+[submodule "libraries/SD"]
+	path = libraries/SD
+	url = https://github.com/arduino-libraries/SD
