@@ -24,6 +24,21 @@ Previous Contributors:
 
 /* Global Variables */
 
+// speed variables
+float vertSpeed = 500; // 500 mm/s
+float horizSpeed = 500; // 500 mm/s
+
+// path variables
+float ft2mm = 304.8;
+float vertDist = 2.5 * ft2mm;
+float horizDist = 6 * ft2mm;
+
+// path times
+float vertTime = vertDist / vertSpeed;
+float horizTime = horizDist / horizTime;
+float pauseTime = 4000
+
+
 // period in ms of logger and printer
 #define LOOP_PERIOD 100
 
@@ -74,8 +89,14 @@ void loop() {
   //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power); 
   // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor 
   // The following example will turn on motor B for four seconds between seconds 4 and 8 
-  if (currentTime > 4000 && currentTime <8000) {
-    motorDriver.drive(0,120,0);
+  // speed ~ 0.5 m/s,v keep motor drive ~120 that should be fine
+  // MAKE THIS PART AS SHORT AS POSSIBLE TIME-WISE; prefer if over wait
+  if (currentTime > pauseTime && currentTime < (pauseTime + vertTime)) {
+    motorDriver.drive(0,-120,0); // move down
+  } else if (currentTime < (pauseTime + vertTime + horizTime){
+    motorDrive.drive(120,0,120) // move left
+  } else if (currentTime < (pauseTime + 2*vertTime + horizTime)){
+    motorDrive.drive(0,120,0); // move up
   } else {
     motorDriver.drive(0,0,0);
   }
@@ -103,3 +124,13 @@ void loop() {
   }
 
 }
+
+void driveForward(){
+
+}
+
+void driveBackward(){
+
+}
+
+void driveUp()
