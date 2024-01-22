@@ -92,11 +92,14 @@ void loop() {
   // speed ~ 0.5 m/s,v keep motor drive ~120 that should be fine
   // MAKE THIS PART AS SHORT AS POSSIBLE TIME-WISE; prefer if over wait
   if (currentTime > pauseTime && currentTime < (pauseTime + vertTime)) {
-    motorDriver.drive(0,-120,0); // move down
+    driveUp(-0.5);
+    // motorDriver.drive(0,-120,0); // move down
   } else if (currentTime < (pauseTime + vertTime + horizTime){
-    motorDrive.drive(120,0,120) // move left
+    driveForward(0.5);
+    // motorDrive.drive(120,0,120) // move left
   } else if (currentTime < (pauseTime + 2*vertTime + horizTime)){
-    motorDrive.drive(0,120,0); // move up
+    driveUp(0.5);
+    // motorDrive.drive(0,120,0); // move up
   } else {
     motorDriver.drive(0,0,0);
   }
@@ -125,12 +128,13 @@ void loop() {
 
 }
 
-void driveForward(){
-
+void driveForward(float magnitude) {
+  float drive = magnitude * 255
+  motorDrive.drive(drive, 0, drive)
 }
 
-void driveBackward(){
-
+void driveUp(float magnitude){
+  float drive = magnitude * 255
+  motorDrive.drive(0, drive, 0)
 }
 
-void driveUp()
