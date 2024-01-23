@@ -36,7 +36,7 @@ float horizDist = 6 * ft2mm;
 // path times
 float vertTime = vertDist / vertSpeed;
 float horizTime = horizDist / horizTime;
-float pauseTime = 4000
+float pauseTime = 4000;
 
 
 // period in ms of logger and printer
@@ -94,7 +94,7 @@ void loop() {
   if (currentTime > pauseTime && currentTime < (pauseTime + vertTime)) {
     driveUp(-0.5);
     // motorDriver.drive(0,-120,0); // move down
-  } else if (currentTime < (pauseTime + vertTime + horizTime){
+  } else if (currentTime < (pauseTime + vertTime + horizTime)){
     driveForward(0.5);
     // motorDrive.drive(120,0,120) // move left
   } else if (currentTime < (pauseTime + 2*vertTime + horizTime)){
@@ -129,12 +129,12 @@ void loop() {
 }
 
 void driveForward(float magnitude) {
-  float drive = magnitude * 255
-  motorDrive.drive(drive, 0, drive)
+  float drive = magnitude * 255;
+  motorDriver.drive(drive, 0, drive);
 }
 
 void driveUp(float magnitude){
-  float drive = magnitude * 255
-  motorDrive.drive(0, drive, 0)
+  float drive = magnitude * 255;
+  motorDriver.drive(0, drive, 0);
 }
 
