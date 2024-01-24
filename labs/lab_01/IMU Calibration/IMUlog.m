@@ -48,17 +48,27 @@ fclose(fid);
 %% Process your data here
 Prompt = "Choose Acceleration Axis ";
 x = input(Prompt);
+Start = 1;
+Stop = 30; 
 
-plot(x)
+xcropp = x(Start:Stop)
+plot(xcropp)
+M = mean(xcropp) %plot mean as horizontal line 
+yline(M)
+S = std(xcropp)
+SE = std(xcropp)/sqrt(length(xcropp))
+confLev=0.95
+teensy_un = 9.8/M %z mean
+print -dpng -r300 filename.png
+
 xlabel('Time(Sample Number)'), ylabel('Acceleration')
 title('Acceleration vs. Time')
-M = mean(x) %plot mean as horizontal line 
-yline(M)
-S = std(x)
-SE = std(x)/sqrt(x(4:29))
-confLev=0.95
-%y=filter(y-10,:);
+set(gcf, 'color', [1, 1, 1])
+h = legend('Acceleration','Mean')
+set(h, 'Location', 'northwest')
 
+%y=filter(y-10,:);
+% legend black line is mean 
 %accelX, accelY, accelZ plots
 %choose, plot + calculations 
 %sample number to start and stop start at 10th, stop at 50th example
