@@ -25,8 +25,8 @@ Previous Contributors:
 /* Global Variables */
 
 // speed variables
-float vertSpeed = 500;   // 500 mm/s
-float horizSpeed = 500;  // 500 mm/s
+float vertSpeed = 1000; // 500 mm/s
+float horizSpeed = 700; // 500 mm/s
 
 // path variables
 float ft2mm = 304.8;
@@ -35,8 +35,8 @@ float horizDist = 6 * ft2mm;
 
 // path times
 float vertTime = vertDist / vertSpeed;
-float horizTime = horizDist / horizTime;
-float pauseTime = 4000;
+float horizTime = horizDist / horizSpeed;
+float pauseTime = 10000;
 
 
 // period in ms of logger and printer
@@ -93,13 +93,13 @@ void loop() {
   // MAKE THIS PART AS SHORT AS POSSIBLE TIME-WISE; prefer if over wait
   if (currentTime > pauseTime && currentTime < (pauseTime + vertTime)) {
     driveUp(-0.5);
-    // motorDriver.drive(0,-120,0); // move down
-  } else if (currentTime < (pauseTime + vertTime + horizTime)){
+    motorDriver.drive(0,-120,0); // move down
+  } else if (currentTime > (pauseTime + vertTime) && currentTime < (pauseTime + vertTime + horizTime)){
     driveForward(0.5);
     // motorDrive.drive(120,0,120) // move left
-  } else if (currentTime < (pauseTime + 2 * vertTime + horizTime)) {
-    driveUp(0.5);
-    // motorDrive.drive(0,120,0); // move up
+  } else if (currentTime > (pauseTime + vertTime + horizTime) && currentTime < (pauseTime + 2*vertTime + horizTime)){
+    driveUp(1);
+    // motorDriver.drive(0,120,0); // move up
   } else {
     motorDriver.drive(0, 0, 0);
   }
