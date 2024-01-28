@@ -1,38 +1,40 @@
 % load files
-[accelX_zero, accelY_zero, accelZ] = read_data('sample_data', 'data');
-[accelX, accelY, accelZ_zero] = read_data('sample_data', 'data');
+[accelX_zero, accelY_zero, accelZ] = read_data('XYZero', 'data');
+[accelX, accelY, accelZ_zero] = read_data('ZZero', 'data');
 
 % crop data to region we care about
-f1start = 1;
-f1end = 60;
+f1start = 125;
+f1end = 225;
 
-f2start = 1;
-f2end = 60;
+f2start = 40;
+f2end = 140;
 
-accelX_zero = accelX_zero(f1start:f1end);
-accelY_zero = accelY_zero(f1start:f1end);
-accelZ_zero = accelZ_zero(f2start:f2end);
+teensyAccelerationUnits = 0.0102;
+
+accelX_zero = accelX_zero(f1start:f1end)*teensyAccelerationUnits;
+accelY_zero = accelY_zero(f1start:f1end)*teensyAccelerationUnits;
+accelZ = accelZ(f1start:f1end)*teensyAccelerationUnits;
+accelZ_zero = accelZ_zero(f2start:f2end)*teensyAccelerationUnits;
 
 % plot all axes
-teensyAccelerationUnits = 2;
 
 fh = figure;
 set(fh, 'color', [1 1 1]);  
 
 subplot(3, 1, 1);
-plot(accelX_zero*teensyAccelerationUnits);
+plot(accelX_zero);
 title('X Acceleration');
 xlabel('Time (Sample No.)') 
 ylabel('Acceleration (m/s^2)') 
 
 subplot(3, 1, 2);
-plot(accelY_zero*teensyAccelerationUnits);
+plot(accelY_zero);
 title('Y Acceleration');
 xlabel('Time (Sample No.)') 
 ylabel('Acceleration (m/s^2)') 
 
 subplot(3, 1, 3);
-plot(accelZ_zero*teensyAccelerationUnits);
+plot(accelZ_zero);
 title('Z Acceleration');
 xlabel('Time (Sample No.)') 
 ylabel('Acceleration (m/s^2)') 

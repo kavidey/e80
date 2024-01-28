@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenam = '_SampleData'; % file name for the data you want to read
+filenam = '_XYZero'; % file name for the data you want to read
 infofile = strcat('INF', filenam, '.TXT');
 datafile = strcat('LOG', filenam, '.BIN');
 
@@ -48,24 +48,26 @@ fclose(fid);
 %% Process your data here
 Prompt = "Choose Acceleration Axis ";
 x = input(Prompt);
-Start = 1;
-Stop = 30; 
+Start = 125;
+Stop = 225; 
+Aun = -0.0102083333;
 
-xcropp = x(Start:Stop)
-plot(xcropp)
+xcropp = x(Start:Stop)*Aun;
+plot(xcropp);
 M = mean(xcropp) %plot mean as horizontal line 
 yline(M)
 S = std(xcropp)
 SE = std(xcropp)/sqrt(length(xcropp))
-confLev=0.95
-teensy_un = 9.8/M %z mean
-print -dpng -r300 filename.png
+confLev=0.95;
+teensy_un = 9.8/M; %z mean
 
-xlabel('Time(Sample Number)'), ylabel('Acceleration')
-title('Acceleration vs. Time')
-set(gcf, 'color', [1, 1, 1])
-h = legend('Acceleration','Mean')
-set(h, 'Location', 'northwest')
+xlabel('Time (Sample Number)'), ylabel('Acceleration (m/s^2)');
+title('Acceleration vs. Time');
+set(gcf, 'color', [1, 1, 1]);    
+h = legend('Acceleration','Mean');
+set(h, 'Location', 'northwest');
+
+print -dpng -r300 filename.png;
 
 %y=filter(y-10,:);
 % legend black line is mean 

@@ -1,7 +1,15 @@
-% logreader.m
-% Use this script to read data from your micro SD card
+% read_data.m
+% Kavi Dey (kdey@hmc.edu)
+% 1/22/24
 
-function [accelX,accelY,accelZ,magX,magY,magZ,headingIMU,pitchIMU,rollIMU,right,vertical,left] = read_data(file_name, folder)
+function [accelX,accelY,accelZ,magX,magY,magZ,headingIMU,pitchIMU,rollIMU,motorA,motorB,motorC] = read_data(file_name, folder)
+% read_data
+% Imports data from paired .txt and .bin file from teensy into matlab
+%
+% Arguments:
+%   file_name: the name of the .txt and .bin file (both files need to have
+%       the same name)
+%   folder: the folder that the data is in (optional)
 arguments
     file_name
     folder = ""
