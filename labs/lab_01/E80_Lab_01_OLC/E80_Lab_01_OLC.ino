@@ -73,7 +73,7 @@ void setup() {
   motorDriver.init();
 
   /* Keep track of time */
-  printer.printMessage("Starting main loop",10);
+  printer.printMessage("Starting main loop", 10);
   loopStartTime = millis();
 }
 
@@ -81,14 +81,14 @@ void setup() {
 void loop() {
 
   int currentTime = millis() - loopStartTime;
-  
+
   ///////////  Don't change code above here! ////////////////////
-  // write code here to make the robot fire its motors in the sequence specified in the lab manual 
-  // the currentTime variable contains the number of ms since the robot was turned on 
-  // The motorDriver.drive function takes in 3 inputs arguments motorA_power, motorB_power, motorC_power: 
-  //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power); 
-  // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor 
-  // The following example will turn on motor B for four seconds between seconds 4 and 8 
+  // write code here to make the robot fire its motors in the sequence specified in the lab manual
+  // the currentTime variable contains the number of ms since the robot was turned on
+  // The motorDriver.drive function takes in 3 inputs arguments motorA_power, motorB_power, motorC_power:
+  //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power);
+  // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor
+  // The following example will turn on motor B for four seconds between seconds 4 and 8
   // speed ~ 0.5 m/s,v keep motor drive ~120 that should be fine
   // MAKE THIS PART AS SHORT AS POSSIBLE TIME-WISE; prefer if over wait
   if (currentTime > pauseTime && currentTime < (pauseTime + vertTime)) {
@@ -101,31 +101,30 @@ void loop() {
     driveUp(1);
     // motorDriver.drive(0,120,0); // move up
   } else {
-    motorDriver.drive(0,0,0);
+    motorDriver.drive(0, 0, 0);
   }
 
-  // DONT CHANGE CODE BELOW THIS LINE 
+  // DONT CHANGE CODE BELOW THIS LINE
   // --------------------------------------------------------------------------
 
-  
-  if ( currentTime-printer.lastExecutionTime > LOOP_PERIOD ) {
+
+  if (currentTime - printer.lastExecutionTime > LOOP_PERIOD) {
     printer.lastExecutionTime = currentTime;
-    printer.printValue(0,imu.printAccels());
-    printer.printValue(1,imu.printRollPitchHeading());
-    printer.printValue(2,motorDriver.printState());
+    printer.printValue(0, imu.printAccels());
+    printer.printValue(1, imu.printRollPitchHeading());
+    printer.printValue(2, motorDriver.printState());
     printer.printToSerial();  // To stop printing, just comment this line out
   }
 
-  if ( currentTime-imu.lastExecutionTime > LOOP_PERIOD ) {
+  if (currentTime - imu.lastExecutionTime > LOOP_PERIOD) {
     imu.lastExecutionTime = currentTime;
-    imu.read(); // this is a sequence of blocking I2C read calls
+    imu.read();  // this is a sequence of blocking I2C read calls
   }
 
-  if ( currentTime-logger.lastExecutionTime > LOOP_PERIOD && logger.keepLogging) {
+  if (currentTime - logger.lastExecutionTime > LOOP_PERIOD && logger.keepLogging) {
     logger.lastExecutionTime = currentTime;
     logger.log();
   }
-
 }
 
 void driveForward(float magnitude) {
@@ -137,4 +136,3 @@ void driveUp(float magnitude){
   float drive = magnitude * 255;
   motorDriver.drive(0, drive, 0);
 }
-
