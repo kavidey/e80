@@ -1,11 +1,13 @@
-% logreader.m
-% Use this script to read data from your micro SD card
+% File: plot_open_loop_run.m
+% Author: Miranda Brandt
+% Email: mgaribaybrandt@hmc.edu
+% Date: 26 January 2024
 
 clear;
 %clf;
 
 folder = 'data';
-filenum = '_sample_data'; % file number for the data you want to read
+filenum = '025'; % file number for the data you want to read
 infofile = strcat(folder, '/', 'INF', filenum, '.TXT');
 datafile = strcat(folder, '/', 'LOG', filenum, '.BIN');
 
@@ -46,30 +48,24 @@ for i=1:numel(varTypes)
 end
 fclose(fid);
 
-%% Process your data here
-startSampleNo = 1;
-stopSampleNo = 10;%length(accelX)-1;
-teensyAccelerationUnits = 2;
+%% Data Plot of the Acceleration in the X, Y, and Z Axes
+
+startSampleNo = 340;
+stopSampleNo = 475; %length(accelX)-1;
+teensyAccelerationUnits = 0.0102;
 
 fh = figure;
 set(fh, 'color', [1 1 1]);  
 
-subplot(3, 1, 1);
-plot(accelX(startSampleNo:stopSampleNo)*teensyAccelerationUnits);
-title('X Acceleration');
-xlabel('Time (Sample No.)') 
-ylabel('Acceleration (m/s^2)') 
-
-subplot(3, 1, 2);
-plot(accelY(startSampleNo:stopSampleNo)*teensyAccelerationUnits);
-title('Y Acceleration');
-xlabel('Time (Sample No.)') 
-ylabel('Acceleration (m/s^2)') 
-
-subplot(3, 1, 3);
-plot(accelZ(startSampleNo:stopSampleNo)*teensyAccelerationUnits);
-title('Z Acceleration');
-xlabel('Time (Sample No.)') 
-ylabel('Acceleration (m/s^2)') 
+hold on
+plot(accelX(startSampleNo:stopSampleNo)*teensyAccelerationUnits, 'LineWidth', 1.5);
+plot(accelY(startSampleNo:stopSampleNo)*teensyAccelerationUnits, 'LineWidth', 1.5);
+plot(accelZ(startSampleNo:stopSampleNo)*teensyAccelerationUnits, 'LineWidth',1.5);
+title('Tank Obstacle Course: Open Loop Acceleration');
+xlabel('Time [Sample No.]') 
+ylabel('Acceleration [m/s^2]') 
+h = legend('x', 'y', 'z')
+set(h, 'Location', 'best')
+fontsize(14, "points")
 
 print -dpng -r300 accel.png
