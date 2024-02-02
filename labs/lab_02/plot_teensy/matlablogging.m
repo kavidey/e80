@@ -3,7 +3,7 @@
 
 function teensyanalog=matlablogging(length)
     length = 5000;  % 5000 is hardcoded buffer size on Teensy
-    s = serial('/dev/tty.usbmodem138398401','BaudRate',115200); %% REPLACE 'COM7' WITH A STRING THAT IS THE COM PORT
+    s = serial('COM7','BaudRate',115200); %% REPLACE 'COM7' WITH A STRING THAT IS THE COM PORT
     set(s,'InputBufferSize',2*length)
     fopen(s);
     fprintf(s,'%d',2*length)         % Send length to Teensy
@@ -12,9 +12,3 @@ function teensyanalog=matlablogging(length)
     teensyanalog = uint8(dat);
     teensyanalog = typecast(teensyanalog,'uint16');
 end
-
-
-%str = fscanf(s);
-%teensyanalog = str2num(str);
-
-%[teensyanalog, count] = fscanf(s,['%d']);
