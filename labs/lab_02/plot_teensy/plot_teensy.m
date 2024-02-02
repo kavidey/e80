@@ -15,4 +15,12 @@ min_t = min(teensy_data)
 
 Vpp = max_t - min_t
 
-Vrms = (Vpp/2)/sqrt(2)
+Vrms = double((Vpp/2)/sqrt(2)) * (3.3/2^10)
+
+% Y = fft(teensy_data);
+% % Because Fourier transforms involve complex numbers, plot the complex magnitude of the fft spectrum.
+% 
+% plot(abs(Y),"LineWidth",3)
+% title("Complex Magnitude of fft Spectrum")
+% xlabel("f (Hz)")
+% ylabel("|fft(X)|")
