@@ -58,7 +58,7 @@ hold on
 plot(xplot,yplot)
 plot(xplot,yplot+lambdayhat,'-.b',xplot,yplot-lambdayhat,'-.b')
 plot(xplot,yplot+lambday,'--m',xplot,yplot-lambday,'--m')
-xlabel('90\degree V_pp / transmission Vpp')
+xlabel('90^\circ V_{pp} / transmission V_{pp}')
 ylabel('Calculated turbidity')
 if beta1 > 0 % Fix this
     location = 'northwest';
@@ -68,4 +68,6 @@ end
 legend('Data Points','Best Fit Line','Upper Func. Bound',...
     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
     'Location', location)
+
+set(gcf, 'Color', [1 1 1])
 hold off
