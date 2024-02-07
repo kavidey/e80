@@ -1,3 +1,5 @@
 .DS_Store
 matlabInVSCodeVariableInfo.csv
 *-backups/
+_autosave*
+\#auto_saved_files#
