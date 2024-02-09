@@ -247,7 +247,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "offset inverted amplifier.kicad_pro",
+    "filename": "Lab3TransimpedanceSchematics.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -313,7 +313,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "./",
+    "plot_directory": "",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -324,7 +324,7 @@
   },
   "sheets": [
     [
-      "1955553b-bf73-4eb7-a2ef-6715d01e80d8",
+      "fb4834a2-dfae-4751-8625-3d98705e3ec1",
       ""
     ]
   ],

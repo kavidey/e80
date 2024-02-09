@@ -2,10 +2,13 @@
 % data to the sample data at the end of the comments, and uncomment your
 % data
 
-reflectedVpp = [1 2 3 4];
-transmittedVpp = [3 4 9 10];
+% reflectedVpp = [4.2 4.5 4.5 4.3 4.3];
+% transmittedVpp = [4.7 4.34 34.3 4.3];
+reflectedVpp = [4.2 4.5 4.5 4.3 4.3 4.2 4.6 4.5 4.3 4.3 4.2 4.5 4.5 4.3 4.3];
+transmittedVpp = [4.7 4.34 34.3 4.3 4.2 4.6 4.5 4.3 4.3 4.2 4.5 4.5 4.3 4.3];
 x = reflectedVpp./transmittedVpp;
-y = [5 0 2 3]; % calculated turbidities
+y = [121 499 823 921 1176]; % calculated turbidities
+y = [y y y]
 
 % Script for the linear fit of data. The independent values are
 % in the x array and the matched dependent values are in the y array. This
@@ -71,3 +74,9 @@ legend('Data Points','Best Fit Line','Upper Func. Bound',...
 
 set(gcf, 'Color', [1 1 1])
 hold off
+
+pred_y = x*beta1 + beta0;
+scatter(y, pred_y)
+xlabel('Predicted Turbidity')
+ylabel('Calculated turbidity')
+title("Predicted Turbidity vs. Actual Turbidity")
