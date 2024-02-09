@@ -617,7 +617,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 031390a7-1c92-4506-9028-b7cfdb0e42f3)
   )
-  (text "555 Timer Calculations using:\nhttps://ohmslawcalculator.com/555-astable-calculator\n\nThe output should oscillate at 634.4 Hz with 55.95% duty cycle"
+  (text "555 Timer Calculations using:\nhttps://ohmslawcalculator.com/555-astable-calculator\n\nThe output should oscillate at 642 Hz with 55.3% duty cycle"
     (at 45.72 105.41 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 12dc7343-7586-4403-90c5-ce5989b17f0e)
@@ -734,7 +734,7 @@
     (property "Reference" "R1" (at 48.26 60.96 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "270" (at 48.26 63.5 0)
+    (property "Value" "240" (at 48.26 63.5 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 46.736 62.484 90)
@@ -888,7 +888,7 @@
     (property "Reference" "R3" (at 110.49 74.93 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (at 110.49 77.47 0)
+    (property "Value" "150" (at 110.49 77.47 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 108.966 76.454 90)

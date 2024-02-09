@@ -512,7 +512,7 @@
     (property "Reference" "Rf" (at 151.13 87.63 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "???" (at 151.13 90.17 90)
+    (property "Value" "10M" (at 151.13 90.17 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 150.876 94.996 90)
