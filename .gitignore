@@ -3,3 +3,4 @@ matlabInVSCodeVariableInfo.csv
 *-backups/
 _autosave*
 \#auto_saved_files#
+*.lck
