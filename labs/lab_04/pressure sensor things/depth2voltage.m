@@ -43,8 +43,8 @@ r2 = R2;
 r3 = R3;
 r4 = R4;
 depths = depthsCm;
-%% im confused what code is doinig here
-derivR1 = DR1(R1, R2, R3, R4, depthsCm)
+% im confused what code is doinig here
+% derivR1 = DR1(R1, R2, R3, R4, depthsCm)
 DR1 = abs(subs(DR1));
 DR2 = abs(subs(DR2));
 DR3 = abs(subs(DR3));
