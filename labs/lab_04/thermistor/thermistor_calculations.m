@@ -9,7 +9,7 @@ dB = 40.5; % uncertainty is 1% of B
 dR = 0.01*R; % uncertainty is ~1% of R
 
 syms r r0 b;
-T = @(r, r0, b) ((log(r./r0)/b)+1/T0).^(-1);
+T = @(r, r0, b) (((log(r./r0))/b)+1/T0).^(-1);
 % find partial derivatives
 diffR = diff(T, r);
 diffR0 = diff(T, r0);
@@ -23,5 +23,5 @@ diffR0 = abs(subs(diffR0));
 diffb = abs(subs(diffb));
 uncertainty = sqrt((diffR.*dR).^2 + (diffR0*R0).^2 + (diffb*B).^2);
 uncertainty = double(uncertainty);
-output = T(R, R0, B)
+predictedTemps = T(R, R0, B)
 
