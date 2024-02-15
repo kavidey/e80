@@ -1,4 +1,4 @@
-temps = [273.15 293.15]; % temp in kelvin
+temps = [-0.1 20.3] + 273.15; % temp in kelvin
 R =[163000 59000]; % predicted resistances
 
 R0 = 47000; % from datasheet
