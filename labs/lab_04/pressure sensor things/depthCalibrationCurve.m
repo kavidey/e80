@@ -4,11 +4,8 @@
 
 % reflectedVpp = [4.2 4.5 4.5 4.3 4.3];
 % transmittedVpp = [4.7 4.34 34.3 4.3];
-reflectedVpp = [4.2 4.5 4.5 4.3 4.3 4.2 4.6 4.5 4.3 4.3 4.2 4.5 4.5 4.3 4.3];
-transmittedVpp = [4.7 4.34 34.3 4.3 4.2 4.6 4.5 4.3 4.3 4.2 4.5 4.5 4.3 4.3];
-x = reflectedVpp./transmittedVpp;
-y = [121 499 823 921 1176]; % calculated turbidities
-y = [y y y]
+x = [-2.0217   -1.3724   -0.7231   -0.0737    0.5756]; % circuit output voltages
+y = [0 10 20 30 40]; % depths
 
 % Script for the linear fit of data. The independent values are
 % in the x array and the matched dependent values are in the y array. This
@@ -77,6 +74,6 @@ hold off
 
 pred_y = x*beta1 + beta0;
 scatter(y, pred_y)
-xlabel('Predicted Turbidity')
-ylabel('Calculated turbidity')
-title("Predicted Turbidity vs. Actual Turbidity")
+xlabel('Depth (cm)')
+ylabel('Ouput Voltage (V)')
+title("Output Voltage (V) vs Depth (cm)")

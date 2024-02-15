@@ -37,7 +37,7 @@ DR2 = diff(VoutYucky, r2)
 DR3 = diff(VoutYucky, r3);
 DR4 = diff(VoutYucky, r4);
 Ddepths = diff(VoutYucky, depths);
-evaluate partials at actual variable values
+% evaluate partials at actual variable values
 r1 = R1;
 r2 = R2;
 r3 = R3;
@@ -50,16 +50,16 @@ DR2 = abs(subs(DR2));
 DR3 = abs(subs(DR3));
 DR4 = abs(subs(DR4));
 Ddepths = abs(subs(Ddepths));
-% % find contribution to error; (uncertainty)*(partial derivative wrt Vout)
-% contribution1 = dR1*DR1
-% contribution2 = dR2*DR2
-% contribution3 = dR3*DR3
-% contribution4 = dR4*DR4
-% contributionDepth = dDepthsCm*Ddepths
-% uncertainty = sqrt(contribution1.^2+contribution2.^2+contribution3.^2+contribution4.^2+ ...
-%     contributionDepth.^2);
-% uncertainty = double(uncertainty)
-% for x = 1:n
-%     [x depths(x), Vout(x), uncertainty(x)]
-% end
+% find contribution to error; (uncertainty)*(partial derivative wrt Vout)
+contribution1 = dR1*DR1
+contribution2 = dR2*DR2
+contribution3 = dR3*DR3
+contribution4 = dR4*DR4
+contributionDepth = dDepthsCm*Ddepths
+uncertainty = sqrt(contribution1.^2+contribution2.^2+contribution3.^2+contribution4.^2+ ...
+    contributionDepth.^2);
+uncertainty = double(uncertainty)
+for x = 1:n
+    [x depths(x), Vout(x), uncertainty(x)]
+end
 
