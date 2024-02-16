@@ -1,4 +1,4 @@
-%% Solve for the actual resistances using datasheet provided vaues
+%% Solve for the actual resistances using datasheet provided values
 T0 = 25 + 273.15; % K
 R0 = 47 * 10^3; % ohms
 
