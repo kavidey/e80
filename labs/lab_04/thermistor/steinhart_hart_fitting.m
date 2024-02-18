@@ -1,11 +1,11 @@
 %% Steinhart-Hart Temperatue Fitting
 
 % The resistances
-R = [7.55 11.66 17.97 25.47 41.65 54.1 59.5 91.3 140 158.1] * 1e3; % kOhm
+R = [5.85 6.27 7.04 8.96 14.77 41.74 60.37 157.6 ] * 1e3; % kOhm
 % R = [323.1500  353.1500  373.1500  358.1500]; % from datasheet
 
 % The temperatures
-T = [70.4 58.6 47.5 38.8 27.3 22 19.2 10.6 7.4 0.7] + 273.15; % K
+T = [78.3 76.2 72.3 66.5 53.5 27.7 19.6 0.8] + 273.15; % K
 % T = [1.6432 0.5518 0.2902 0.4673] * 1e4; % from datasheet
 
 confLev = 0.95; % We set the confidence level for the data fits here.
