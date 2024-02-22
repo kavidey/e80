@@ -63,13 +63,13 @@ title("Drag vs Reynold's Number for Nose #2)")
 % nose 3 plotting
 cone3Coeff = dragCoefficient(cone3Drag, rho, v, coneArea);
 subplot(4, 2, 5)
-plot(cone2Drag, coneReynold)
+plot(cone3Drag, coneReynold)
 xlabel("Drag (N)")
 ylabel("Reynold's Number")
 title("Drag vs Reynold's Number for Nose #3)")
 
 subplot(4, 2, 6)
-plot(cone2Coeff, coneReynold)
+plot(cone3Coeff, coneReynold)
 xlabel("Drag (N)")
 ylabel("Reynold's Number")
 title("Drag vs Reynold's Number for Nose #3)")
