@@ -14,8 +14,8 @@ robotDragExp = [1 1 1 1 1 1 1 1 1];
 
 % experimental constants
 coneArea = 0.001963495408; % all cones have same frontal area
-coneL = 50 % characteristic length of cone is 50mm diameter
-robotL = 0.0931 % characteristic length of robot is 0.0931 m length ... i guess??
+coneL = 50; % characteristic length of cone is 50mm diameter
+robotL = 0.0931; % characteristic length of robot is 0.0931 m length ... i guess??
 robotArea = 0.00164;
 deltaP = deltaPwater*249.08;
 
