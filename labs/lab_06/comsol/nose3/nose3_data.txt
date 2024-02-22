@@ -1,3 +1,8 @@
+% Model:              nose_cone_base.mph
+% Version:            COMSOL 5.5.0.359
+% Date:               Feb 21 2024, 20:04
+% Table:              Evaluation Group 1 - 
+% ws (m/s)                                        Reynolds Number                                   Drag (N)                                          Drag Coefficient (1)
 5                                                 1.7123287671232877E-6                             0.028095719153849553                              0.9504676121931428
 15                                                5.136986301369863E-6                              0.2518536706243987                                0.9462989136875546
 25                                                8.561643835616438E-6                              0.6990339408452615                                0.9447823414189185

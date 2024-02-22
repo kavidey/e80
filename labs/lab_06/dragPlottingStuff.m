@@ -1,6 +1,6 @@
 % environmental variables
 rho = 1.115; % density of air at room temp
-nu = 1.46*10^5 % kinematic viscocity of air at room temp
+nu = 1.46*10^5; % kinematic viscocity of air at room temp
 
 % experimental data goes here
 deltaPwater = [0.01 0.03 0.06 0.07 0.15 0.23 0.34 0.49 0.66];
@@ -91,12 +91,12 @@ title("Drag vs Reynold's Number for Robot Scale Model)")
 %% calibration curve for fan speed and wind speed
 % uncomment here to plot calibration curve !!
 
-% figure(1)
-% clf
-% speedplt(fanSpeed, v)
+figure(1)
+clf
+[beta0, lambdaBeta0, beta1, lambdaBeta1] = speedplt(fanSpeed, v)
 
 % the code below was originally written by the e80 teaching team
-function output = speedplt(RPS, v)
+function [beta0, lambdaBeta0, beta1, lambdaBeta1] = speedplt(RPS, v)
     x = RPS;
     y = v;
     confLev = 0.95; % The confidence level
@@ -145,5 +145,4 @@ function output = speedplt(RPS, v)
         'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
         'Location', location)
     hold off
-    output = [beta0, lambdaBeta0, beta1, lambdaBeta1];
 end
