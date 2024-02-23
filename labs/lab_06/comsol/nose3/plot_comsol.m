@@ -3,16 +3,16 @@ data = table2array(readtable("nose3_data.txt"));
 
 rho = 1.115; % density of air at room temp
 nu = 1.46*10^5; % kinematic viscocity of air at room temp
-coneArea = 0.001963495408; % all cones have same frontal area
-coneL = 50; % characteristic length of cone is 50mm diameter
+robotArea = 0.01476; % all cones have same frontal area
+robotL = 167.259 * 1e-3; % [m] characteristic length of cone is 50mm diameter
 
 dragForce = data(:, 3);
 windSpeed = data(:, 1);
-reynoldsNumber = data(:,1) .* coneL ./ nu;
-dragCoefficient = dragForce ./ (0.5 .* rho .* windSpeed .^ 2 .* coneArea);
+reynoldsNumber = data(:,1) .* robotL ./ nu;
+dragCoefficient = dragForce ./ (0.5 .* rho .* windSpeed .^ 2 .* robotArea);
 
 subplot(2,1,1);
-plot(reynoldsNumber, dragForce);
+plot(reynoldsNumber, dragForce);,
 xlabel("Reynolds Number")
 ylabel("Drag Force [N]")
 title("Nose Cone 3: Reynolds Number vs. Drag Force")

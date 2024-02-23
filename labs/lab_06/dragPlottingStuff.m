@@ -24,7 +24,7 @@ cone1Drag = cone1DragExp - dragOffset;
 cone2Drag = cone2DragExp - dragOffset;
 cone3Drag = cone3DragExp - dragOffset;
 robotDrag = robotDragExp - dragOffset;
-v=sqrt(2*deltaP./rho);
+
 reynoldsNumber = @(v, l, nu) v.*l./nu;
 dragCoefficient = @(drag, rho, v, frontalArea) drag./(0.5.*rho.*v.^2.*frontalArea);
 coneReynold = reynoldsNumber(v, coneL, nu);
@@ -93,7 +93,7 @@ title("Drag vs Reynold's Number for Robot Scale Model)")
 
 figure(1)
 clf
-[beta0, lambdaBeta0, beta1, lambdaBeta1] = speedplt(fanSpeed, v)
+speedplt(fanSpeed, v)
 
 % the code below was originally written by the e80 teaching team
 function [beta0, lambdaBeta0, beta1, lambdaBeta1] = speedplt(RPS, v)
