@@ -35,7 +35,7 @@ hold off
 legend("5 [deg]", "15 [deg]", "45 [deg]")
 xlabel("Reynolds Number")
 ylabel("lift Force [N]")
-title("Full Scale Robot: Reynolds Number vs. Lift Force")
+title("NACA6412: Reynolds Number vs. Lift Force")
 
 subplot(2,1,2);
 hold on
@@ -46,6 +46,6 @@ hold off
 legend("5 [deg]", "15 [deg]", "45 [deg]")
 xlabel("Reynolds Number")
 ylabel("Lift Coefficient")
-title("Full Scale Robot: Reynolds Number vs. Lift Coefficient")
+title("NACA6412: Reynolds Number vs. Lift Coefficient")
 
 set(gcf, "Color", "w")
