@@ -29,3 +29,18 @@ micSignal = dat.*(3.3/1023); % convert from Teensy Units to Volts
 samplingPeriod = 1/samplingFreq; % s
 totalTime = numSamples*samplingPeriod; % s
 t = linspace(0,totalTime,numSamples)'; % time vector of signal
+
+% saving data
+filename = append('teensy_sampling_data_' + int2str(samplingFreq) )
+save(filename)
+
+% plotting
+fft = fft(micSignal);
+figure(1)
+clf
+plot(t, abs(fft));
+title(append('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
+
+figure(2)
+plot(t(1:100), micSignal(1:100))
+title(append('First 100 Samples of Data from Teensy with Sampling Rate of ', samplingFreq, ' Hz'))
