@@ -42,5 +42,6 @@ plot(t, abs(fft));
 title(append('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
 
 figure(2)
+clf
 plot(t(1:100), micSignal(1:100))
 title(append('First 100 Samples of Data from Teensy with Sampling Rate of ', samplingFreq, ' Hz'))
