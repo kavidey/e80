@@ -1,9 +1,9 @@
-%% Solve for the actual resistances using datasheet provided vaues
+%% Solve for the actual resistances using datasheet provided values
 T0 = 25 + 273.15; % K
 R0 = 47 * 10^3; % ohms
 
-temps = [50 80 100] + 273.15; % K
-B = [4050 4101 4131]; % K
+temps = [50 80 100 85] + 273.15; % K
+B = [4050 4101 4131 4108]; % K
 
 R = R0 * exp(B .* (1./temps - 1/T0));
 
