@@ -32,13 +32,18 @@ t = linspace(0,totalTime,numSamples)'; % time vector of signal
 
 % saving data
 filename = append('teensy_sampling_data_' + int2str(samplingFreq) )
-save(filename)
+save(filename, "micSignal", "samplingFreq", "numSamples")
 
 % plotting
 fft = fft(micSignal);
+signal = 2*abs(fft(1:numSamples/2+1));
 figure(1)
 clf
-plot(t, abs(fft));
+% code for calculating k is taken from fdomain.m by e72 teaching tema
+k=-numSamples/2:numSamples/2-1;
+timeSampled = numSamples/samplingFreq;
+f = k/timeSampled;
+plot(f, signal);
 title(append('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
 
 figure(2)
