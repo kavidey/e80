@@ -31,22 +31,24 @@ totalTime = numSamples*samplingPeriod; % s
 t = linspace(0,totalTime,numSamples)'; % time vector of signal
 
 % saving data
-filename = append('teensy_sampling_data_' + int2str(samplingFreq) )
+filename = append('teensy_sampling_data_', int2str(samplingFreq) )
 save(filename, "micSignal", "samplingFreq", "numSamples")
 
-% plotting
-fft = fft(micSignal);
-signal = 2*abs(fft(1:numSamples/2+1));
+% % make fake data
+% micSignal = sin(2*pi*t*samplingFreq/10);
+
+% plotting ... a lot of this data is from matlab fft documentation
+signalFull = fft(micSignal);
+signalCropped = signalFull(1:numSamples/2+1);
+signal = (1/numSamples)*abs(signalCropped);
+signal(2:end) = 2*signal(2:end)
 figure(1)
 clf
-% code for calculating k is taken from fdomain.m by e72 teaching tema
-k=-numSamples/2:numSamples/2-1;
-timeSampled = numSamples/samplingFreq;
-f = k/timeSampled;
+f = samplingFreq/numSamples*(0:numSamples/2)
 plot(f, signal);
-title(append('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
+title(sprintf('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
 
 figure(2)
 clf
 plot(t(1:100), micSignal(1:100))
-title(append('First 100 Samples of Data from Teensy with Sampling Rate of ', samplingFreq, ' Hz'))
+title(sprintf('First 100 Samples of Data from Teensy with Sampling Rate of ', samplingFreq, ' Hz'))
