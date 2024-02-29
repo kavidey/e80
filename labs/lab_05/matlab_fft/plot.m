@@ -1,4 +1,4 @@
-[wfm, metadata] = read_h5('data.h5');
+[wfm, metadata] = read_h5('rect_03');
 
 for i = 1:length(metadata(1, :))
     entry = metadata(1, i); 
