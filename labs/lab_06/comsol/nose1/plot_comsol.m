@@ -1,4 +1,4 @@
-data = table2array(readtable("nose1_data.txt"));
+data = table2array(readtable("data.txt"));
 % data = renamevars(data, ["Var1", "Var2", "Var3", "Var4"], ["Wind Speed [m/s]", "Reynolds Number", "Drag [N]", "Drag Coefficient"]);
 
 rho = 1.115; % density of air at room temp

@@ -29,8 +29,8 @@ nose2_drag = nose2_drag - nose2_drag(1);
 nose2_reynolds = reynoldsNumber(nose2_v, coneL, nu);
 nose2_dragC = dragCoefficient(nose2_drag, rho, nose2_v, coneArea);
 
-nose3_v = rpm2v([0 435 651 840 994 1159 1299 1517 1671 1871]);
-nose3_drag = kgf2N([-1.247 -1.252 -1.258 -1.265 -1.273 -1.283 -1.292 -1.310 -1.324 -1.343])*-1;
+nose3_v = rpm2v([0 497 666 839 1012 1160 1350 1520 1736 1917]);
+nose3_drag = kgf2N([-1.248 -1.250 -1.252 -1.255 -1.259 -1.259 -1.268 -1.272 -1.281 -1.288])*-1;
 nose3_lift = kgf2N([0.449 0.445 0.442 0.439 0.421 0.410 0.405 0.395 0.380 0.350]);
 fprintf("Zero Lift %g, Zero Drag %g\n", nose3_lift(1), nose3_drag(1))
 nose3_drag = nose3_drag - nose3_drag(1);
@@ -40,9 +40,9 @@ nose3_reynolds = reynoldsNumber(nose3_v, coneL, nu);
 nose3_dragC = dragCoefficient(nose3_drag, rho, nose3_v, coneArea);
 
 % robot
-robot_v = rpm2v([0 435 651 840 994 1159 1299 1517 1671 1871]);
-robot_drag = kgf2N([-1.247 -1.252 -1.258 -1.265 -1.273 -1.283 -1.292 -1.310 -1.324 -1.343])*-1;
-robot_lift = kgf2N([0.424 0.412 0.418 0.414 0.398 0.380 0.358 0.370 0.360 0.340]);
+robot_v = rpm2v([0 556 710 870 1010 1219 1357 1586 1757 1953]);
+robot_drag = kgf2N([-1.245 -1.252 -1.257 -1.263 -1.270 -1.282 -1.291 -1.309 -1.324 -1.340])*-1;
+robot_lift = kgf2N([0.765 0.765 0.766 0.767 0.767 0.768 0.770 0.777 0.780 0.790]);
 fprintf("Zero Lift %g, Zero Drag %g\n", robot_lift(1), robot_drag(1))
 robot_drag = robot_drag - robot_drag(1);
 % robot_v = robot_v(2:end);

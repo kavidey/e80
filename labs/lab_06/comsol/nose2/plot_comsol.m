@@ -1,4 +1,4 @@
-data = table2array(readtable("nose2_data.txt"));
+data = table2array(readtable("data.txt"));
 % data = renamevars(data, ["Var1", "Var2", "Var3", "Var4"], ["Wind Speed [m/s]", "Reynolds Number", "Drag [N]", "Drag Coefficient"]);
 
 rho = 1.115; % density of air at room temp
@@ -8,8 +8,8 @@ coneL = 50 * 1e-3; % [m] characteristic length of cone is 50mm diameter
 
 dragForce = data(:, 3);
 windSpeed = data(:, 1);
-reynoldsNumber = data(:,1) .* robotL ./ nu;
-dragCoefficient = dragForce ./ (0.5 .* rho .* windSpeed .^ 2 .* robotArea);
+reynoldsNumber = data(:,1) .* coneL ./ nu;
+dragCoefficient = dragForce ./ (0.5 .* rho .* windSpeed .^ 2 .* coneArea);
 
 subplot(2,1,1);
 plot(reynoldsNumber, dragForce);,
