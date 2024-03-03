@@ -1,13 +1,16 @@
 %% Setup
 load calibration.mat
 
+rho = 1.195; % [kg/m^3] density of air at room temp
+nu = 15.27*10^-6; % kinematic viscocity of air at room temp
+
 reynoldsNumber = @(v, l, nu) v.*l./nu;
 dragCoefficient = @(drag, rho, v, frontalArea) drag./(0.5.*rho.*v.^2.*frontalArea);
 
-coneArea = pi*(25*1e-3)^2; % all cones have same frontal area
-coneL = 50*1e-3; % [m] characteristic length of cone is 50mm diameter
-robotL = 0.0931; % [m^2] characteristic length of robot is 0.0931 m length ... i guess??
-robotArea = 0.00164;
+coneArea =  pi*(25*1e-3)^2; % [m] all cones have same frontal area
+coneL = 50 * 1e-3; % [m] characteristic length of cone is 50mm diameter
+robotL = 0.0931; % [m] characteristic length of robot
+robotArea = 0.00164; % [m^2] characteristic area of robot
 
 nose1_v = rpm2v([0 435 651 840 994 1159 1299 1517 1671 1871]);
 nose1_drag = kgf2N([-1.247 -1.252 -1.258 -1.265 -1.273 -1.283 -1.292 -1.310 -1.324 -1.343])*-1;

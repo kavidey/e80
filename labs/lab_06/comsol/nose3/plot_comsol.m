@@ -2,7 +2,7 @@ data = table2array(readtable("data.txt"));
 % data = renamevars(data, ["Var1", "Var2", "Var3", "Var4"], ["Wind Speed [m/s]", "Reynolds Number", "Drag [N]", "Drag Coefficient"]);
 
 rho = 1.115; % density of air at room temp
-nu = 1.46*10^5; % kinematic viscocity of air at room temp
+nu = 1.46*10^-5; % kinematic viscocity of air at room temp
 coneArea =  0.00196; % [m] all cones have same frontal area
 coneL = 50 * 1e-3; % [m] characteristic length of cone is 50mm diameter
 
