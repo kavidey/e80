@@ -17,12 +17,14 @@ L = length(wfm); % Legth of signal
 t = (1:length(wfm(1,:))) / Fs; % Time vector
 s3 = wfm; % Signal 3
 Y3 = fft(s3.*hann(L)');
+% Y3 = fft(s3);
 P23 = abs(Y3/L);
 P13 = P23(1:L/2+1);
 P13(2:end-1) = 2*P13(2:end-1);
 f = Fs/L*(0:(L/2));
 
-plot(f(1:5001),P13(1:5001),"LineWidth",3)
-title("Single-Sided Amplitude Spectrum of s3(t)")
-xlabel("f (Hz)")
-ylabel("|P13(f)|")
+plot(f(1:1000),P13(1:1000))
+title("Single-Sided Amplitude Spectrum of Signal 3 (Hanning Window)")
+xlabel("F [Hz]")
+ylabel("Magnitude")
+yscale log
