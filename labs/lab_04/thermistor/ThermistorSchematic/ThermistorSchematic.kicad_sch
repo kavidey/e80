@@ -579,31 +579,6 @@
     )
   )
 
-  (symbol (lib_id "power:GND") (at 151.13 36.83 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 3767316c-b5c4-48be-9c57-5f12f401f970)
-    (property "Reference" "#PWR05" (at 151.13 43.18 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 151.13 41.91 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 151.13 36.83 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 151.13 36.83 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 4cf7d539-cfd6-4b48-890f-92ff22b55a95))
-    (instances
-      (project "ThermistorSchematic"
-        (path "/8bafe1b0-6793-4df3-8ff4-47084f629b8f"
-          (reference "#PWR05") (unit 1)
-        )
-      )
-    )
-  )
-
   (symbol (lib_id "power:GND") (at 90.17 116.84 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4cdf163a-1e06-48a8-b81c-c9dd38f09215)
