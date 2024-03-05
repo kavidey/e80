@@ -1,7 +1,7 @@
 %% Lab 5 Interface
 
-samplingFreq = 100E3; % Hz [100E3 max]
-numSamples = 1000; % the higher this is the longer sampling will take
+samplingFreq = 26E3; % Hz [100E3 max]
+numSamples = 2000; % the higher this is the longer sampling will take
 
 bytesPerSample = 2; % DO NOT CHANGE
 micSignal = zeros(numSamples,1); % DO NOT CHANGE
@@ -14,7 +14,7 @@ end
 
 % Modify first argument of serial to match Teensy port under Tools tab of Arduino IDE.  Second to match baud rate.
 % Note that the timeout is set to 60 to accommodate long sampling times.
-s = serial('COM10','BaudRate',115200); 
+s = serial('COM8','BaudRate',115200); 
 set(s,{'InputBufferSize','OutputBufferSize'},{numSamples*bytesPerSample,4});
 s.Timeout = 60; 
 
@@ -46,9 +46,9 @@ figure(1)
 clf
 f = samplingFreq/numSamples*(0:numSamples/2)
 plot(f, signal);
-title(sprintf('Plot of FFT of Teensy Data, Sampling Rate of ', samplingFreq, ' samples per seccond'))
+title(sprintf('Plot of FFT of Teensy Data, Sampling Rate of 26 kS/s'))
 
 figure(2)
 clf
 plot(t(1:100), micSignal(1:100))
-title(sprintf('First 100 Samples of Data from Teensy with Sampling Rate of ', samplingFreq, ' Hz'))
+title(sprintf('First 100 Samples of Data from Teensy with Sampling Rate of 26 kS/s'))
