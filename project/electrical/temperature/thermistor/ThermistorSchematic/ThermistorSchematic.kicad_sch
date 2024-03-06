@@ -542,12 +542,16 @@
     (uuid fd96d2d5-6df1-4dd0-aa3a-3a8095a61829)
   )
 
-  (text "Rt=R0exp(B(1/T-1/T0))\nVin=Rd/(Rd+Rt)\nVout=(R2/(R1+R2))(1+Rf/Ri)Vdc-(Rf/Ri)Vin"
-    (at 99.06 147.32 0)
+  (text "Rt=thermistor\nVin=Rd/(Rd+Rt)\nVout=(R2/(R1+R2))(1+Rf/Ri)Vdc-(Rf/Ri)Vin"
+    (at 91.44 147.32 0)
     (effects (font (size 2 2)) (justify left bottom))
-    (uuid 0fc41986-8efa-4aa4-ae48-4342f4a42422)
+    (uuid 9fef3eb1-70d9-4308-a348-fc1e5e1fb0ed)
   )
 
+  (label "Vin" (at 118.11 93.98 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 080b705c-1483-4a4f-a51b-2357f3a9724a)
+  )
   (label "Vout" (at 195.58 104.14 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 69c9dd9a-eec8-460f-a7d4-85fb8089f870)

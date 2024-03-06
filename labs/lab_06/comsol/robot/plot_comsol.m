@@ -1,10 +1,10 @@
-data = table2array(readtable("robot_data.txt"));
+data = table2array(readtable("data.txt"));
 % data = renamevars(data, ["Var1", "Var2", "Var3", "Var4"], ["Wind Speed [m/s]", "Reynolds Number", "Drag [N]", "Drag Coefficient"]);
 
-rho = 1.115; % density of air at room temp
-nu = 1.46*10^5; % kinematic viscocity of air at room temp
-robotArea = 0.01476; % all cones have same frontal area
-robotL = 167.259 * 1e-3; % [m] characteristic length of cone is 50mm diameter
+rho = 998.2; % [kg/m^3] density of air at room temp
+nu = 1.0023e-6; % [m^2/s] kinematic viscocity of air at 20 C
+robotArea = 0.01476; % [m^2] all cones have same frontal area
+robotL = 0.0931*3; % [m] characteristic length of cone is 50mm diameter
 
 dragForce = data(:, 3);
 windSpeed = data(:, 1);
@@ -12,7 +12,7 @@ reynoldsNumber = data(:,1) .* robotL ./ nu;
 dragCoefficient = dragForce ./ (0.5 .* rho .* windSpeed .^ 2 .* robotArea);
 
 subplot(2,1,1);
-plot(reynoldsNumber, dragForce);,
+plot(reynoldsNumber, dragForce);
 xlabel("Reynolds Number")
 ylabel("Drag Force [N]")
 title("Full Scale Robot: Reynolds Number vs. Drag Force")

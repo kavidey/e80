@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>steinhart_hart_fitting</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-02-15">
+<meta name="DC.source" content="steinhart_hart_fitting.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Steinhart-Hart Temperatue Fitting</a>
+</li>
+<li>
+<a href="#2">Plot Original Data</a>
+</li>
+<li>
+<a href="#3">Plot Transformed Data</a>
+</li>
+<li>
+<a href="#4">Plot Residuals</a>
+</li>
+<li>
+<a href="#5">Plot 3rd-order Fit and Bounds</a>
+</li>
+<li>
+<a href="#6">Transform Fit Back</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Steinhart-Hart Temperatue Fitting</h2>
+<pre class="codeinput">
+<span class="comment">% The resistances</span>
+R = [5.85 6.27 7.04 8.96 14.77 41.74 60.37 157.6 ] * 1e3; <span class="comment">% kOhm</span>
+<span class="comment">% R = [323.1500  353.1500  373.1500  358.1500]; % from datasheet</span>
+
+<span class="comment">% The temperatures</span>
+T = [78.3 76.2 72.3 66.5 53.5 27.7 19.6 0.8] + 273.15; <span class="comment">% K</span>
+<span class="comment">% T = [1.6432 0.5518 0.2902 0.4673] * 1e4; % from datasheet</span>
+
+confLev = 0.95; <span class="comment">% We set the confidence level for the data fits here.</span>
+
+<span class="comment">% Constants from Datasheet (calculated using datasheet_constants.m)</span>
+A = -7.982;
+B = 4.151;
+C = -0.7198;
+D = 0.04161;
+</pre>
+<h2 id="2">Plot Original Data</h2>
+<p>Plot the original temperature and noisy temperature data.</p>
+<pre class="codeinput">figure(1)
+plot(R,T,<span class="string">'x'</span>)
+xlabel(<span class="string">'Resistance (\Omega)'</span>)
+ylabel(<span class="string">'Temperature (K)'</span>)
+title(<span class="string">'Temperature vs Resistance'</span>)
+legend(<span class="string">'Temperature'</span>)
+hold <span class="string">off</span>
+
+<span class="comment">% Since a plot of 1/T vs ln(R) should be close to linear, we will convert</span>
+<span class="comment">% the data to the correct forms and do linear and polynomial fits with</span>
+<span class="comment">% them.</span>
+ooT = 1./T;
+lnR = log(R);
+</pre>
+<img vspace="5" hspace="5" src="steinhart_hart_fitting_01.png" alt=""> <h2 id="3">Plot Transformed Data</h2>
+<p>Plot the transformed original temperature and noisy temperature data.</p>
+<pre class="codeinput">figure(2)
+plot (lnR,ooT,<span class="string">'x'</span>)
+xlabel(<span class="string">'ln[Resistance (\Omega)]'</span>)
+ylabel(<span class="string">'Reciprocal Temperature (1/K)'</span>)
+title(<span class="string">'Original and Noisy Data Transformed'</span>)
+legend(<span class="string">'Original Temperatures'</span>,<span class="string">'Noisy Temperatures'</span>)
+hold <span class="string">off</span>
+
+<span class="comment">% Start by working with the original transformed data. We will fit a 1st,</span>
+<span class="comment">% 2nd, and 3rd order polynomial to the data and look at the fit and the</span>
+<span class="comment">% residuals.</span>
+range = max(lnR) - min(lnR); <span class="comment">% Get range for our xplot data</span>
+xplot = min(lnR):range/30:max(lnR); <span class="comment">% Generate x data for some of our plots.</span>
+<span class="comment">% The fitting routine 'fit' is particular about the form of the data.</span>
+<span class="comment">% Use the line below to get your data into the correct format for 'fit'.</span>
+[Xout,Yout] = prepareCurveData(lnR, ooT);
+[f1,stat1] = fit(Xout,Yout,<span class="string">'poly1'</span>) <span class="comment">% 1st-order fit with statistics.</span>
+[f2,stat2] = fit(Xout,Yout,<span class="string">'poly2'</span>) <span class="comment">% 2nd-order fit with statistics.</span>
+[f3,stat3] = fit(Xout,Yout,<span class="string">'poly3'</span>) <span class="comment">% 3rd-order fit with statistics.</span>
+</pre>
+<pre class="codeoutput">Warning: Ignoring extra legend entries. 
+f1 = 
+     Linear model Poly1:
+     f1(x) = p1*x + p2
+     Coefficients (with 95% confidence bounds):
+       p1 =   0.0002445  (0.0002409, 0.000248)
+       p2 =   0.0007231  (0.000688, 0.0007582)
+stat1 = 
+  struct with fields:
+
+           sse: 1.3438e-10
+       rsquare: 0.9998
+           dfe: 6
+    adjrsquare: 0.9998
+          rmse: 4.7325e-06
+f2 = 
+     Linear model Poly2:
+     f2(x) = p1*x^2 + p2*x + p3
+     Coefficients (with 95% confidence bounds):
+       p1 =   2.161e-06  (-1.983e-06, 6.305e-06)
+       p2 =   0.0002004  (0.0001158, 0.000285)
+       p3 =   0.0009447  (0.0005183, 0.001371)
+stat2 = 
+  struct with fields:
+
+           sse: 9.8856e-11
+       rsquare: 0.9998
+           dfe: 5
+    adjrsquare: 0.9998
+          rmse: 4.4465e-06
+f3 = 
+     Linear model Poly3:
+     f3(x) = p1*x^3 + p2*x^2 + p3*x + p4
+     Coefficients (with 95% confidence bounds):
+       p1 =  -3.098e-06  (-7.005e-06, 8.088e-07)
+       p2 =   9.836e-05  (-2.3e-05, 0.0002197)
+       p3 =  -0.0007883  (-0.002037, 0.0004604)
+       p4 =    0.004307  (5.285e-05, 0.008562)
+stat3 = 
+  struct with fields:
+
+           sse: 4.4693e-11
+       rsquare: 0.9999
+           dfe: 4
+    adjrsquare: 0.9999
+          rmse: 3.3426e-06
+</pre>
+<img vspace="5" hspace="5" src="steinhart_hart_fitting_02.png" alt=""> <h2 id="4">Plot Residuals</h2>
+<p>Since the fit is so close, we need a better way to distinguish how well 1st-, 2nd-, and 3rd-order fit. We'll plot the residuals to compare.</p>
+<pre class="codeinput">figure(3)
+subplot(3,1,1)
+plot(f1,Xout,Yout,<span class="string">'residuals'</span>)
+<span class="comment">% xlabel('Ln[Resistance (\Omega)]')</span>
+ylabel(<span class="string">'Residuals (1/K)'</span>)
+title(<span class="string">'1st Order Polynomial Fit'</span>)
+<span class="comment">% The linear residuals look parabolic, so we need at least 2nd order.</span>
+subplot(3,1,2)
+plot(f2,Xout,Yout,<span class="string">'residuals'</span>)
+<span class="comment">% xlabel('Ln[Resistance (\Omega)]')</span>
+ylabel(<span class="string">'Residuals (1/K)'</span>)
+title(<span class="string">'2nd Order Polynomial Fit'</span>)
+<span class="comment">% The 2nd-order residuals look cubic so we need at least 3rd order.</span>
+subplot(3,1,3)
+plot(f3,Xout,Yout,<span class="string">'residuals'</span>)
+xlabel(<span class="string">'Ln[Resistance (\Omega)]'</span>)
+ylabel(<span class="string">'Residuals (1/K)'</span>)
+title(<span class="string">'3rd Order Polynomial Fit'</span>)
+<span class="comment">% The 3rd-order residuals look pretty random, so we're done.</span>
+</pre>
+<img vspace="5" hspace="5" src="steinhart_hart_fitting_03.png" alt=""> <h2 id="5">Plot 3rd-order Fit and Bounds</h2>
+<p>Let's plot the 3rd order fit with the data and the functional and observational bounds. Note, since there is so little noise in the data, we won't be able to distinguish which is which.</p>
+<pre class="codeinput">p11 = predint(f3,xplot,confLev,<span class="string">'observation'</span>,<span class="string">'off'</span>); <span class="comment">% Gen conf bounds</span>
+p21 = predint(f3,xplot,confLev,<span class="string">'functional'</span>,<span class="string">'off'</span>); <span class="comment">% Gen conf bounds</span>
+figure(4)
+plot(f3,Xout,Yout) <span class="comment">% Notice that the fit doesn't need both x and y.</span>
+hold <span class="string">on</span>
+plot(xplot, p21, <span class="string">'-.b'</span>) <span class="comment">% Upper and lower functional confidence limits</span>
+plot(xplot, p11, <span class="string">'--m'</span>) <span class="comment">% Upper and lower observational confidence limits</span>
+xlabel(<span class="string">'Ln[Resistance (\Omega)]'</span>)
+ylabel(<span class="string">'Reciprocal Temperature (1/K)'</span>)
+title(<span class="string">'3rd Order Polynomial Fit'</span>)
+legend(<span class="string">'Data Points'</span>,<span class="string">'Best Fit Line'</span>,<span class="string">'Upper Func. Bound'</span>,<span class="keyword">...</span>
+    <span class="string">'Lower Func. Bound'</span>, <span class="string">'Upper Obs. Bound'</span>, <span class="string">'Lower Obs. Bound'</span>,<span class="keyword">...</span>
+    <span class="string">'Location'</span>, <span class="string">'northwest'</span>)
+hold <span class="string">off</span>
+</pre>
+<img vspace="5" hspace="5" src="steinhart_hart_fitting_04.png" alt=""> <h2 id="6">Transform Fit Back</h2>
+<p>Let's untransform the best fit and confidence bounds back into the original space with T vs R and see how good we feel about things.</p>
+<pre class="codeinput">yplot = f3(xplot);
+figure(5)
+plot(R,T,<span class="string">'x'</span>)
+hold <span class="string">on</span>
+<span class="comment">% plot(exp(xplot), 1 ./ (A + log(exp(xplot)) * B + (log(exp(xplot)).^2) * C + (log(exp(xplot)).^3) * D))</span>
+R0 = 47000; <span class="comment">% from datasheet</span>
+T0 = 293.15; <span class="comment">% reference temp is 25C, negligible uncertainty</span>
+B = 4050; <span class="comment">% in Kelvin, from 25 to 50 C</span>
+calc_T = @(r) (B * T0) ./ (B + T0.*(log(r/R0)));
+plot(R, calc_T(R));
+plot(exp(xplot), 1./yplot)
+plot(exp(xplot), 1./p21, <span class="string">'-.b'</span>) <span class="comment">% Upper and lower functional confidence limits</span>
+plot(exp(xplot), 1./p11, <span class="string">'--m'</span>) <span class="comment">% Upper and lower observational confidence limits</span>
+legend(<span class="string">'Data Points'</span>,<span class="string">'Pred. from datasheet'</span>,<span class="string">'Best Fit Line'</span>,<span class="string">'Upper Func. Bound'</span>,<span class="keyword">...</span>
+    <span class="string">'Lower Func. Bound'</span>, <span class="string">'Upper Obs. Bound'</span>, <span class="string">'Lower Obs. Bound'</span>,<span class="keyword">...</span>
+    <span class="string">'Location'</span>, <span class="string">'northeast'</span>)
+xlabel(<span class="string">'Resistance (\Omega)'</span>)
+ylabel(<span class="string">'Temperature (K)'</span>)
+title(<span class="string">'Retransformed 3rd-Order with Fit Lines'</span>)
+hold <span class="string">off</span>
+</pre>
+<img vspace="5" hspace="5" src="steinhart_hart_fitting_05.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Steinhart-Hart Temperatue Fitting
+
+% The resistances
+R = [5.85 6.27 7.04 8.96 14.77 41.74 60.37 157.6 ] * 1e3; % kOhm
+% R = [323.1500  353.1500  373.1500  358.1500]; % from datasheet
+
+% The temperatures
+T = [78.3 76.2 72.3 66.5 53.5 27.7 19.6 0.8] + 273.15; % K
+% T = [1.6432 0.5518 0.2902 0.4673] * 1e4; % from datasheet
+
+confLev = 0.95; % We set the confidence level for the data fits here.
+
+% Constants from Datasheet (calculated using datasheet_constants.m)
+A = -7.982;
+B = 4.151;
+C = -0.7198;
+D = 0.04161;
+%% Plot Original Data
+% Plot the original temperature and noisy temperature data.
+figure(1)
+plot(R,T,'x')
+xlabel('Resistance (\Omega)')
+ylabel('Temperature (K)')
+title('Temperature vs Resistance')
+legend('Temperature')
+hold off
+
+% Since a plot of 1/T vs ln(R) should be close to linear, we will convert
+% the data to the correct forms and do linear and polynomial fits with
+% them.
+ooT = 1./T;
+lnR = log(R);
+
+%% Plot Transformed Data
+% Plot the transformed original temperature and noisy temperature data.
+figure(2)
+plot (lnR,ooT,'x')
+xlabel('ln[Resistance (\Omega)]')
+ylabel('Reciprocal Temperature (1/K)')
+title('Original and Noisy Data Transformed')
+legend('Original Temperatures','Noisy Temperatures')
+hold off
+
+% Start by working with the original transformed data. We will fit a 1st,
+% 2nd, and 3rd order polynomial to the data and look at the fit and the
+% residuals.
+range = max(lnR) - min(lnR); % Get range for our xplot data
+xplot = min(lnR):range/30:max(lnR); % Generate x data for some of our plots.
+% The fitting routine 'fit' is particular about the form of the data.
+% Use the line below to get your data into the correct format for 'fit'.
+[Xout,Yout] = prepareCurveData(lnR, ooT);
+[f1,stat1] = fit(Xout,Yout,'poly1') % 1st-order fit with statistics.
+[f2,stat2] = fit(Xout,Yout,'poly2') % 2nd-order fit with statistics.
+[f3,stat3] = fit(Xout,Yout,'poly3') % 3rd-order fit with statistics.
+%% Plot Residuals
+% Since the fit is so close, we need a better way to distinguish how well
+% 1st-, 2nd-, and 3rd-order fit. We'll plot the residuals to compare.
+figure(3)
+subplot(3,1,1)
+plot(f1,Xout,Yout,'residuals')
+% xlabel('Ln[Resistance (\Omega)]')
+ylabel('Residuals (1/K)')
+title('1st Order Polynomial Fit')
+% The linear residuals look parabolic, so we need at least 2nd order.
+subplot(3,1,2)
+plot(f2,Xout,Yout,'residuals')
+% xlabel('Ln[Resistance (\Omega)]')
+ylabel('Residuals (1/K)')
+title('2nd Order Polynomial Fit')
+% The 2nd-order residuals look cubic so we need at least 3rd order.
+subplot(3,1,3)
+plot(f3,Xout,Yout,'residuals')
+xlabel('Ln[Resistance (\Omega)]')
+ylabel('Residuals (1/K)')
+title('3rd Order Polynomial Fit')
+% The 3rd-order residuals look pretty random, so we're done.
+
+%% Plot 3rd-order Fit and Bounds
+% Let's plot the 3rd order fit with the data and the functional and
+% observational bounds. Note, since there is so little noise in the data,
+% we won't be able to distinguish which is which.
+p11 = predint(f3,xplot,confLev,'observation','off'); % Gen conf bounds
+p21 = predint(f3,xplot,confLev,'functional','off'); % Gen conf bounds
+figure(4)
+plot(f3,Xout,Yout) % Notice that the fit doesn't need both x and y.
+hold on
+plot(xplot, p21, '-.b') % Upper and lower functional confidence limits
+plot(xplot, p11, 'REPLACE_WITH_DASH_DASHm') % Upper and lower observational confidence limits
+xlabel('Ln[Resistance (\Omega)]')
+ylabel('Reciprocal Temperature (1/K)')
+title('3rd Order Polynomial Fit')
+legend('Data Points','Best Fit Line','Upper Func. Bound',...
+    'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
+    'Location', 'northwest')
+hold off
+%% Transform Fit Back
+% Let's untransform the best fit and confidence bounds back into the
+% original space with T vs R and see how good we feel about things.
+yplot = f3(xplot);
+figure(5)
+plot(R,T,'x')
+hold on
+% plot(exp(xplot), 1 ./ (A + log(exp(xplot)) * B + (log(exp(xplot)).^2) * C + (log(exp(xplot)).^3) * D))
+R0 = 47000; % from datasheet
+T0 = 293.15; % reference temp is 25C, negligible uncertainty
+B = 4050; % in Kelvin, from 25 to 50 C
+calc_T = @(r) (B * T0) ./ (B + T0.*(log(r/R0)));
+plot(R, calc_T(R));
+plot(exp(xplot), 1./yplot)
+plot(exp(xplot), 1./p21, '-.b') % Upper and lower functional confidence limits
+plot(exp(xplot), 1./p11, 'REPLACE_WITH_DASH_DASHm') % Upper and lower observational confidence limits
+legend('Data Points','Pred. from datasheet','Best Fit Line','Upper Func. Bound',...
+    'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
+    'Location', 'northeast')
+xlabel('Resistance (\Omega)')
+ylabel('Temperature (K)')
+title('Retransformed 3rd-Order with Fit Lines')
+hold off
+
+##### SOURCE END #####
+-->
+</body>
+</html>

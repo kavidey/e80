@@ -1,5 +1,5 @@
-rho = 1.115; % density of air at room temp
-nu = 1.46*10^5; % kinematic viscocity of air at room temp
+rho = 1.195; % [kg/m^3] density of air at room temp
+nu = 15.27*10^-6; % kinematic viscocity of air at room temp
 
 deltaPwater = [0 0.11 0.2 0.34 0.5 0.68 0.98 1.25 1.53 1.95 0 2.12 1.56 1.3 0.97 0.77 0.55 0.37 0.24 0.13];
 deltaP = deltaPwater*249.08;
@@ -39,4 +39,4 @@ grid on
 rpm2v = @(RPM) beta0 + beta1 * RPM;
 kgf2N = @(kgf) kgf * 9.80665;
 
-save calibration.mat v rho nu beta0 beta1 lambdaBeta0 lambdaBeta1 drag lift rpm2v kgf2N
+save calibration.mat v beta0 beta1 lambdaBeta0 lambdaBeta1 drag lift rpm2v kgf2N
