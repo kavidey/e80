@@ -4,3 +4,5 @@ matlabInVSCodeVariableInfo.csv
 _autosave*
 \#auto_saved_files#
 *.lck
+
+~$*.SLD*

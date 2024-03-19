@@ -1,7 +1,3 @@
-[submodule "libraries/e80lib"]
-	path = libraries/e80lib
-	url = https://github.com/kavidey/E80-Duplicate.git
-	branch = just-library
 [submodule "libraries/Adafruit_GPS"]
 	path = libraries/Adafruit_GPS
 	url = https://github.com/adafruit/Adafruit_GPS
