@@ -1,8 +1,7 @@
 /********
-E80 Lab 7 - Extra Credit 2 - Code
-Current Author:
+E80 Lab 7 Surface Activity Code
+Authors:
     Omar Aleman (oaleman@g.hmc.edu) '21 (contributed 2019)
-Previous Contributors:
     Wilson Ives (wives@g.hmc.edu) '20 (contributed in 2018)
     Christopher McElroy (cmcelroy@g.hmc.edu) '19 (contributed in 2017)  
     Josephine Wong (jowong@hmc.edu) '18 (contributed in 2016)
@@ -74,8 +73,8 @@ void setup() {
 
   int navigateDelay = 0; // how long robot will stay at surface waypoint before continuing (ms)
 
-  const int num_surface_waypoints = 0; // Set to 0 if only doing depth control
-  double surface_waypoints [] = { 0, 0 };   // listed as x0,y0,x1,y1, ... etc.
+  const int num_surface_waypoints = 3; // Set to 0 if only doing depth control
+  double surface_waypoints [] = { 125, -40, 150, -40, 125, -40 };   // listed as x0,y0,x1,y1, ... etc.
   surface_control.init(num_surface_waypoints, surface_waypoints, navigateDelay);
   
   xy_state_estimator.init(); 
