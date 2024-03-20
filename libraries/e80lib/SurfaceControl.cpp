@@ -52,9 +52,20 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     // You can access the x and y coordinates calculated in XYStateEstimator.cpp using state->x and state->y respectively
     // You can access the yaw calculated in XYStateEstimator.cpp using state->yaw
 
-    ///////////////////////////////////////////////////////////
-    // INSERT P CONTROL CODE HERE
-    ///////////////////////////////////////////////////////////
+    // atan2 helps to determine location from two possible options (tan function)
+    yaw_des = atan2(y_des - state->y, x_des - state->x);
+    yaw_error = yaw_des-yaw;
+    u = Kp*yaw_error;
+    uR = avgPower + u;
+    uL = avgPower - u;
+
+    //accounts for uneven motors
+    uR = uR*Kr;
+    uL = uL*Kl;
+
+    // Bounds uR and uL so they are between 0 and 127
+    uR = min(max(0, uR), 127);
+    uL = min(max(0, uL), 127);
     
   }
   else {
