@@ -1,1 +1,0 @@
-[rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,z] = read_data('trial1', 'data');
