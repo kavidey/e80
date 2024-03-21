@@ -54,7 +54,7 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
 
     // atan2 helps to determine location from two possible options (tan function)
     yaw_des = atan2(y_des - state->y, x_des - state->x);
-    yaw_error = yaw_des-yaw;
+    yaw_error = yaw_des - state->yaw;
     u = Kp*yaw_error;
     uR = avgPower + u;
     uL = avgPower - u;
