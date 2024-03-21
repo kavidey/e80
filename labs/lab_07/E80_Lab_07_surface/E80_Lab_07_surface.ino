@@ -75,7 +75,7 @@ void setup() {
 
   const int num_surface_waypoints = 3; // Set to 0 if only doing depth control
   double surface_waypoints [] = { 125, -40, 150, -40, 125, -40 };   // listed as x0,y0,x1,y1, ... etc.
-  surface_control.init(num_surface_waypoints, surface_waypoints, navigateDelay);
+  surface_control.init(num_surface_waypoints*2, surface_waypoints, navigateDelay);
   
   xy_state_estimator.init(); 
 
