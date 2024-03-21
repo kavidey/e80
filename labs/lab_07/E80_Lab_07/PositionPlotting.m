@@ -2,14 +2,15 @@
 % reads from Teensy data stream
 filename= .001;
 map = imread("campusmap.png");
-imgdim = size(map)
-xdim = imgdim(1)
-ydim = imgdim(2)
+map = flip(map);
+imgdim = size(map);
+xdim = imgdim(1);
+ydim = imgdim(2);
 realx = 260 % real map width, in meters, approximated using google maps
 realy = 160 % real map height, in meters, approximated using google maps
-imgScale = mean([realx/xdim, realy/ydim])
+imgScale = mean([realx/xdim, realy/ydim]);
 map = imresize(map, imgScale);
-positionPlotter(map)
+positionPlotter(map);
 
 function position=positionPlotter(map)
 
@@ -21,9 +22,9 @@ function position=positionPlotter(map)
     startSampleNo = 1;
     stopSampleNo = 10;
     xScaleFactor = 1;
-    xShift = 75; % origin is ~75m east of plot origin
+    xShift = 65; % origin is ~60m east of plot origin
     yScaleFactor = 1;
-    yShift = 140; % origin is ~140m north of plot origin
+    yShift = 115; % origin is ~110m north of plot origin
     
     fh = figure;
     set(fh, 'color', [1 1 1]);  
