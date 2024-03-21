@@ -29,10 +29,9 @@ void XYStateEstimator::updateState(imu_state_t * imu_state_p, gps_state_t * gps_
     // You can access the current imu heading with imu_state_p->heading
     // Also note that math.h is already included so you have access to trig functions [rad]
 
-    ///////////////////////////////////////////////////////////////////
-    // INSERT YAW, X and Y CALCULATION HERE
-    //////////////////////////////////////////////////////////////////
-
+    state.x = R_earth*(origin_lon - gps_state_p->lon)*cos(origin_lat);
+    state.y = R_earth*(gps_state_p->lat - origin_lat);
+    state.yaw = -1*imu_state_-p->heading - 90 ;
   }
   else{
     gpsAcquired = 0;
