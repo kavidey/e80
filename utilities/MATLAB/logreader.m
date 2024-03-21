@@ -1,4 +1,4 @@
-[accelX,AccelY] = read_data('run', 'data');
+[accelX,AccelY] = read_data('027', 'data');
 
 len = length(accelX);
 
