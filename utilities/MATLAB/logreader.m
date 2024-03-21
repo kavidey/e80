@@ -1,51 +1,43 @@
-% logreader.m
-% Use this script to read data from your micro SD card
+[accelX,AccelY] = read_data('run', 'data');
 
-clear;
-%clf;
+len = length(accelX);
 
-filenum = '003'; % file number for the data you want to read
-infofile = strcat('INF', filenum, '.TXT');
-datafile = strcat('LOG', filenum, '.BIN');
+% X vs Y
+dt = 0.1; %[s]; % The sampling rate
+t = (0:len-1)*dt; % The time array
 
-%% map from datatype to length in bytes
-dataSizes.('float') = 4;
-dataSizes.('ulong') = 4;
-dataSizes.('int') = 4;
-dataSizes.('int32') = 4;
-dataSizes.('uint8') = 1;
-dataSizes.('uint16') = 2;
-dataSizes.('char') = 1;
-dataSizes.('bool') = 1;
+anx = accelX*0.0102; % Measured acceleration
+vnx = cumtrapz(t,anx); % Integrate the measured acceleration to get the velocity
+rnx = cumtrapz(t,vnx); % Integrate the velocity to get the position
 
-%% read from info file to get log file structure
-fileID = fopen(infofile);
-items = textscan(fileID,'%s','Delimiter',',','EndOfLine','\r\n');
-fclose(fileID);
-[ncols,~] = size(items{1});
-ncols = ncols/2;
-varNames = items{1}(1:ncols)';
-varTypes = items{1}(ncols+1:end)';
-varLengths = zeros(size(varTypes));
-colLength = 256;
-for i = 1:numel(varTypes)
-    varLengths(i) = dataSizes.(varTypes{i});
-end
-R = cell(1,numel(varNames));
+any = AccelY*0.0102; % Measured acceleration
+vny = cumtrapz(t,any); % Integrate the measured acceleration to get the velocity
+rny = cumtrapz(t,vny); % Integrate the velocity to get the position
 
-%% read column-by-column from datafile
-fid = fopen(datafile,'rb');
-for i=1:numel(varTypes)
-    %# seek to the first field of the first record
-    fseek(fid, sum(varLengths(1:i-1)), 'bof');
-    
-    %# % read column with specified format, skipping required number of bytes
-    R{i} = fread(fid, Inf, ['*' varTypes{i}], colLength-varLengths(i));
-    eval(strcat(varNames{i},'=','R{',num2str(i),'};'));
-end
-fclose(fid);
+figure(1)
+plot(rnx, rny)
+xlabel('X (m)')
+ylabel('Y (m)')
+title('X vs Y')
 
-%% Process your data here
-
-
-
+% Y vs Time
+dt = 0.1; %[s]; % The sampling rate
+t = (0:len-1)*dt; % The time array
+sigma = .2; % The standard deviation of the noise in the accel.
+confLev = 0.95; % The confidence level for bounds
+preie = sqrt(2)*erfinv(confLev)*sigma*sqrt(dt); % the prefix to the sqrt(t)
+preiie = 2/3*preie; % The prefix to t^3/2a = 1 + sin( pi*t - pi/2);
+plusie=preie*t.^0.5; % The positive noise bound for one integration
+plusiie = preiie*t.^1.5; % The positive noise bound for double integration
+an = AccelY*0.0102; % Measured acceleration
+vn = cumtrapz(t,an); % Integrate the measured acceleration to get the velocity
+rn = cumtrapz(t,vn); % Integrate the velocity to get the position
+rnp = rn + plusiie'; % Position plus confidence bound
+rnm = rn - plusiie'; % Position minus confidence bound
+figure(2)
+plot(t, rn, t, rnp,'-.', t, rnm,'-.')
+xlabel('Time (s)')
+ylabel('Y (m)')
+title('Y vs Time')
+legend('Y Position','Calculated Position','Upper Confidence Bound',...
+    'Lower Confidence Bound','location','southeast')
