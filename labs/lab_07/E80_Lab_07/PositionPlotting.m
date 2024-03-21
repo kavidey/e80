@@ -30,12 +30,12 @@ function position=positionPlotter(map)
     
     hold on
     image(map)
-    plot(X(startSampleNo:stopSampleNo)*xScaleFactor+xShift, Y(startSampleNo:stopSampleNo)*yScaleFactor+yShift, 'LineWidth', 2.5);
-    h = legend('X', 'Y');
-    set(h, 'Location', 'best');
-    xlabel('X position');
-    ylabel('Y positionon');
-    title('Path over Harvey Mudd Campus');
+    plot(X(startSampleNo:stopSampleNo)*xScaleFactor+xShift, Y(startSampleNo:stopSampleNo)*yScaleFactor+yShift, 'LineWidth', 2.5, 'Color', 'red');
+    % h = legend('X', 'Y');
+    % set(h, 'Location', 'best');
+    xlabel('X position (m)');
+    ylabel('Y positionon (m)');
+    title('Path traveled over Harvey Mudd Campus');
     fontsize(16,"points")
     hold off
     
