@@ -86,10 +86,10 @@ String SurfaceControl::printString(void) {
     printString += "SurfaceControl: ";
     printString += "Yaw_Des: ";
     printString += String(yaw_des*180.0/PI);
-    printString += "[deg], ";
+    // printString += "[deg], ";
     printString += "Yaw: ";
     printString += String(yaw*180.0/PI);
-    printString += "[deg], ";
+    // printString += "[deg], ";
     printString += "u: ";
     printString += String(u);
     printString += ", u_L: ";
