@@ -2,7 +2,7 @@
 % Kavi Dey (kdey@hmc.edu)
 % 1/22/24
 
-function [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y] = read_data(file_name, folder)
+function [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,u,uL,uR,yaw,yaw_des,motorA,motorB,motorC,Current_Sense,A00,A01,A02,A03,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,ErrorFlagA,ErrorFlagB,ErrorFlagC,Button] = read_data(file_name, folder)
 % read_data
 % Imports data from paired .txt and .bin file from teensy into matlab
 %
