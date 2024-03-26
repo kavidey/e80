@@ -44,11 +44,11 @@ void BurstADCSampler::cleanup(){
 // create new node, read data from pin, add to the list
 void BurstADCSampler::update(){
 	timestamp();
-	for ( int i = 1; i < NUM_BURST_PINS+1; i++){
+	for ( int i = 0; i < NUM_BURST_PINS; i++){
 		node* curr = new node;
 		curr->data = analogRead(pinMap[i]);
-		curr->next = headarray[i];
-		headarray[i] = curr;
+		curr->next = headarray[i+1];
+		headarray[i+1] = curr;
 	}
 }
 
