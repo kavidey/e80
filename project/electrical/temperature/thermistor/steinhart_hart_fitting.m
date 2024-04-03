@@ -1,11 +1,11 @@
 %% Steinhart-Hart Temperatue Fitting
 
 % The resistances
-R = [5.85 6.27 7.04 8.96 14.77 41.74 60.37 157.6 ] * 1e3; % kOhm
+R = [102.84 102.15 96.89 92.42 86.82 81.73 78.74 75.47 70.53 68.12 65.11 61.32 60.26 58.22 57.33 55.24 53.96] * 1e3; % kOhm
 % R = [323.1500  353.1500  373.1500  358.1500]; % from datasheet
 
 % The temperatures
-T = [78.3 76.2 72.3 66.5 53.5 27.7 19.6 0.8] + 273.15; % K
+T = [7.8 8.0 8.8 9.8 11.1 12.2 13.1 14.1 15.4 16.2 17.1 18.4 18.9 19.4 20.0 20.6 21.1] + 273.15; % K
 % T = [1.6432 0.5518 0.2902 0.4673] * 1e4; % from datasheet
 
 confLev = 0.95; % We set the confidence level for the data fits here.
@@ -105,11 +105,11 @@ R0 = 47000; % from datasheet
 T0 = 293.15; % reference temp is 25C, negligible uncertainty
 B = 4050; % in Kelvin, from 25 to 50 C
 calc_T = @(r) (B * T0) ./ (B + T0.*(log(r/R0)));
-plot(R, calc_T(R));
+%plot(R, calc_T(R));
 plot(exp(xplot), 1./yplot)
 plot(exp(xplot), 1./p21, '-.b') % Upper and lower functional confidence limits
 plot(exp(xplot), 1./p11, '--m') % Upper and lower observational confidence limits
-legend('Data Points','Pred. from datasheet','Best Fit Line','Upper Func. Bound',...
+legend('Data Points','Best Fit Line','Upper Func. Bound',...
     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
     'Location', 'northeast')
 xlabel('Resistance (\Omega)')
