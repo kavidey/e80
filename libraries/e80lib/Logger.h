@@ -2,9 +2,9 @@
 #define __LOGGER_H__
 #include <stdio.h>
 
-#define LOG_FILENAME_BASE "log"
+#define LOG_FILENAME_BASE "run_"
 #define LOG_FILENAME_BUFFERLEN 20
-#define HEADINGS_FILENAME_BASE "inf"
+#define HEADINGS_FILENAME_BASE "run_"
 // buffered logging
 // number of 512B blocks in the log file
 #define FILE_BLOCK_COUNT 8192 // should last over 10 min

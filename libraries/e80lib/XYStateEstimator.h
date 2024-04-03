@@ -7,7 +7,6 @@
 #include <SensorIMU.h>
 #include "DataSource.h"
 
-#define PI 3.1415926535897932384626433832795
 #define RADIUS_OF_EARTH_M 6371000 // [m]
 
 typedef struct {

@@ -54,7 +54,7 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
 
     // atan2 helps to determine location from two possible options (tan function)
     yaw_des = atan2(y_des - state->y, x_des - state->x);
-    yaw_error = yaw_des-yaw;
+    yaw_error = yaw_des - state->yaw;
     u = Kp*yaw_error;
     uR = avgPower + u;
     uL = avgPower - u;
@@ -86,10 +86,10 @@ String SurfaceControl::printString(void) {
     printString += "SurfaceControl: ";
     printString += "Yaw_Des: ";
     printString += String(yaw_des*180.0/PI);
-    printString += "[deg], ";
+    // printString += "[deg], ";
     printString += "Yaw: ";
     printString += String(yaw*180.0/PI);
-    printString += "[deg], ";
+    // printString += "[deg], ";
     printString += "u: ";
     printString += String(u);
     printString += ", u_L: ";

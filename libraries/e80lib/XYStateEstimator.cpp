@@ -5,10 +5,10 @@
 extern Printer printer;
 
 inline float angleDiff(float a) {
-  while (a < -PI)
-    a += 2 * PI;
-  while (a > PI)
-    a -= 2 * PI;
+  while (a < -M_PI)
+    a += 2 * M_PI;
+  while (a > M_PI)
+    a -= 2 * M_PI;
   return a;
 }
 
@@ -34,10 +34,9 @@ void XYStateEstimator::updateState(imu_state_t *imu_state_p,
     // access the current imu heading with imu_state_p->heading Also note that
     // math.h is already included so you have access to trig functions [rad]
 
-    state.x =
-        RADIUS_OF_EARTH_M * (origin_lon - gps_state_p->lon) * cos(origin_lat);
-    state.y = RADIUS_OF_EARTH_M * (gps_state_p->lat - origin_lat);
-    state.yaw = -1 * imu_state_p->heading - 90;
+    state.x = RADIUS_OF_EARTH_M * ((gps_state_p->lon - origin_lon) * M_PI / 180.0) * cos(origin_lat * M_PI / 180.0);
+    state.y = RADIUS_OF_EARTH_M * ((gps_state_p->lat - origin_lat) * M_PI / 180.0);
+    state.yaw = -1 * angleDiff(imu_state_p->heading*M_PI/180 - M_PI/2);
   } else {
     gpsAcquired = 0;
   }
