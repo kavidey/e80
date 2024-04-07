@@ -1,5 +1,6 @@
 [accelX,AccelY] = read_data('027', 'data');
-
+accelX = accelX(1:144);
+AccelY = AccelY(1:144);
 len = length(accelX);
 
 % X vs Y
@@ -15,10 +16,14 @@ vny = cumtrapz(t,any); % Integrate the measured acceleration to get the velocity
 rny = cumtrapz(t,vny); % Integrate the velocity to get the position
 
 figure(1)
+hold on
 plot(rnx, rny)
+plot([0,0.5], [0,0], LineWidth=3)
 xlabel('X (m)')
 ylabel('Y (m)')
 title('X vs Y')
+legend('Integrated Position', 'Expected Position')
+hold off
 
 % Y vs Time
 dt = 0.1; %[s]; % The sampling rate
