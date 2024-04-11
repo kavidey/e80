@@ -41,7 +41,7 @@ SensorIMU imu;
 Logger logger;
 Printer printer;
 GPSLockLED led;
-BurstADCSampler burst_adc_sampler;
+BurstADCSampler salinity_burst_sampler;
 
 // loop start recorder
 int loopStartTime;
@@ -69,7 +69,7 @@ void setup() {
   gps.init(&GPS);
   motor_driver.init();
   led.init();
-  burst_adc_sampler.init();
+  salinity_burst_sampler.init();
 
   int navigateDelay =
       0; // how long robot will stay at surface waypoint before continuing (ms)
@@ -95,9 +95,6 @@ void setup() {
   surface_control.lastExecutionTime =
       loopStartTime - LOOP_PERIOD + SURFACE_CONTROL_LOOP_OFFSET;
   logger.lastExecutionTime = loopStartTime - LOOP_PERIOD + LOGGER_LOOP_OFFSET;
-
-  burst_adc_sampler.sample();
-  burst_adc_sampler.print();
 }
 
 //////////////////////////////* Loop */////////////////////////
@@ -164,6 +161,8 @@ void loop() {
 
   gps.read(
       &GPS); // blocking UART calls, need to check for UART data every cycle
+  
+  salinity_burst_sampler.sample();
 
   if (currentTime - xy_state_estimator.lastExecutionTime > LOOP_PERIOD) {
     xy_state_estimator.lastExecutionTime = currentTime;
