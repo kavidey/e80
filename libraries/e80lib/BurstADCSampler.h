@@ -11,7 +11,7 @@
 
 // should be no more than 1000 samples
 // which samples for around .1 seconds
-#define NUM_SAMPLES 1000
+#define NUM_SAMPLES 100
 
 struct node {
   int data;

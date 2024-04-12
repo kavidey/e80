@@ -1,0 +1,9 @@
+started on the far side of the lake
+tried to get it to drive to dock, unsuccessfully
+interrupted it several times in the middle including taking it out of the water
+
+
+double surface_waypoints[] = {0, -10, 0, 0}; // out and back
+
+const float origin_lat = 34.1094551;
+const float origin_lon = -117.7127914;

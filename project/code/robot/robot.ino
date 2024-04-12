@@ -74,10 +74,10 @@ void setup() {
   int navigateDelay =
       0; // how long robot will stay at surface waypoint before continuing (ms)
 
-  const int num_surface_waypoints = 3; // Set to 0 if only doing depth control
-  double surface_waypoints[] = {1, -3, 0, 0} // out and back
-  // double surface_waypoints[] = {2, -2, 2, -4, 0, -4, 0, -2, 0, 0} // square
-  // double surface_waypoints[] = {0, -3, 1, -3, 2, -3, 3, -3, 3, -2, 2, -2, 1, -2, 1, -1, 2, -1, 3, -1, 3, 0, 2, 0, 1, 0} // grid
+  const int num_surface_waypoints = 2; // Set to 0 if only doing depth control
+  double surface_waypoints[] = {0, -10, 0, 0}; // out and back
+  // double surface_waypoints[] = {2, -2, 2, -4, 0, -4, 0, -2, 0, 0}; // square
+  // double surface_waypoints[] = {0, -3, 1, -3, 2, -3, 3, -3, 3, -2, 2, -2, 1, -2, 1, -1, 2, -1, 3, -1, 3, 0, 2, 0, 1, 0}; // grid
   // used to be {125, -40, 150, -40, 125, -40}; // listed as x0,y0,x1,y1, ... etc.
   surface_control.init(num_surface_waypoints * 2, surface_waypoints,
                        navigateDelay);
@@ -159,10 +159,7 @@ void loop() {
     imu.read(); // blocking I2C calls
   }
 
-  gps.read(
-      &GPS); // blocking UART calls, need to check for UART data every cycle
-  
-  salinity_burst_sampler.sample();
+  gps.read(&GPS); // blocking UART calls, need to check for UART data every cycle
 
   if (currentTime - xy_state_estimator.lastExecutionTime > LOOP_PERIOD) {
     xy_state_estimator.lastExecutionTime = currentTime;
@@ -172,6 +169,7 @@ void loop() {
   if (currentTime - led.lastExecutionTime > LOOP_PERIOD) {
     led.lastExecutionTime = currentTime;
     led.flashLED(&gps.state);
+    salinity_burst_sampler.sample();
   }
 
   if (currentTime - logger.lastExecutionTime > LOOP_PERIOD &&

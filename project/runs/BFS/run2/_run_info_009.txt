@@ -1,0 +1,7 @@
+out and back in, went straight south
+large turn radius
+
+
+double surface_waypoints[] = {0, -10, 0, 0}; // out and back
+const float origin_lat = 34.1095428;
+const float origin_lon = -117.7128220;
