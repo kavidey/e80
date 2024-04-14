@@ -33,6 +33,17 @@ void SensorGPS::init(Adafruit_GPS* GPS)
   // Request updates on antenna status, comment out to keep quiet
   // GPS->sendCommand(PGCMD_ANTENNA);
   //Serial.print("4");
+
+  /// CUSTOM CHANGES TO TO IMPROVE GPS ///
+  // By default, the GPS module uses global GPS satellite, not the ones that are local to NA called WAAS
+  // Enabling WAAS greatly increases GPS accuracy
+
+  // Enable search for SBAS satellite (only works with 1Hz < output rate)
+  GPS->sendCommand(PMTK_ENABLE_SBAS);
+
+  // Use WAAS for DGPS correction data
+  GPS->sendCommand(PMTK_ENABLE_WAAS);
+  ////////////////////////////////////////////
   
   // Ask for firmware version
   // mySerial.println(PMTK_Q_RELEASE);

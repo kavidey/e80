@@ -11,7 +11,7 @@
 
 // should be no more than 1000 samples
 // which samples for around .1 seconds
-#define NUM_SAMPLES 1000
+#define NUM_SAMPLES 100
 
 struct node {
   int data;
@@ -36,10 +36,11 @@ private:
   void cleanup(void);
   void namefile(void);
 
-  String basename = "datalog";
+  String basename = "datalog_salinity_";
   String filename = "";
   const int TIME_INDEX = 0;
-  const int pinMap[NUM_BURST_PINS] = {14, 15};
+  // const int pinMap[NUM_BURST_PINS] = {14, 15}; // SONAR
+  const int pinMap[NUM_BURST_PINS] = {15, 16}; // Salinity
 };
 
 #endif
