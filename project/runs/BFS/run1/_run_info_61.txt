@@ -1,0 +1,10 @@
+started at far side of lake
+middle of run motor got clogged, touched it to unclog it
+turned the robot a few minutes later
+
+after we thought it go tto waypoiunt 1, it started heading back to the far side of the lake, not the dock
+
+
+double surface_waypoints[] = {-10, -20, 0, 0}; // out and back
+const float origin_lat = 34.1093521;
+const float origin_lon = -117.7128067;
