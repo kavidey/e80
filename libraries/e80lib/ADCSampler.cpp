@@ -43,5 +43,6 @@ size_t ADCSampler::writeDataBytes(unsigned char * buffer, size_t idx)
   for (int i=0; i<NUM_PINS; i++) {
     data_slot[i] = sample[i];
   }
-  return idx + NUM_PINS*sizeof(int);
+  data_slot[NUM_PINS] = millis();
+  return idx + (NUM_PINS+1)*sizeof(int);
 }
