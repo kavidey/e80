@@ -63,14 +63,14 @@ figure(1)
 clf
 hold on
 view(3)
-scatter3(salinity, temp, gain, 'filled', 'SizeData', 100)
-[X, Y] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100));
-Z = griddata(salinity, temp, gain, X, Y, "cubic");
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100)
+[X, Y] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100));
+Z = griddata(gain, temp, salinity, X, Y, "cubic");
 surf(X, Y, Z);
-
-xlabel("Salinity [ppt]")
+title("grid data fit")
+xlabel("Gain")
 ylabel("Temp [C]")
-zlabel("Gain")
+zlabel("Salinity [ppt]")
 hold off
 
 %trying to do polynomial fit here
@@ -81,28 +81,28 @@ clf
 subplot(1, 2, 1);
 hold on
 view(3)
-scatter3(salinity, temp, gain, 'filled', 'SizeData', 100);
-[x,y,z] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100), linspace(min(gain), max(gain), 100));
-[Zpoly23, gof23] = fit([salinity' temp'], gain', 'poly23')
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
+[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
+[Zpoly23, gof23] = fit([gain' temp'], salinity', 'poly23')
 plot(Zpoly23);
 hold off
-title("poly23")
-xlabel("Salinity [ppt]")
+title("poly23 fit")
+xlabel("Gain")
 ylabel("Temp [C]")
-zlabel("Gain")
+zlabel("Salinity [ppt]")
 
 
 % 3rd/4th degree
 subplot(1, 2, 2);
-view(3)
 hold on
-scatter3(salinity, temp, gain, 'filled', 'SizeData', 100);
-[x,y,z] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100), linspace(min(gain), max(gain), 100));
-[Zpoly34, gof34] = fit([salinity' temp'], gain', 'poly34')
+view(3)
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
+[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
+[Zpoly34, gof34] = fit([gain' temp'], salinity', 'poly34')
 plot(Zpoly34);
-title("poly34")
-xlabel("Salinity [ppt]")
+title("poly34 fit")
+xlabel("Gain")
 ylabel("Temp [C]")
-zlabel("Gain")
+zlabel("Salinity [ppt]")
 hold off
 
