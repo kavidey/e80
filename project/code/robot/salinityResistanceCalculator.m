@@ -44,7 +44,10 @@ saltMasses = [0.8
 3.8];
 salinity = saltMasses./(saltMasses+waterMasses);
 
-scatter(salinity, Rprobe, "filled")
+hold on
+% scatter(salinity, Rprobe, "filled")
+scatter(salinity, Vout./Vin)
+hold off
 xlabel('Salinity (ppt)')
 ylabel('Rprobe (\Omega)')
 
