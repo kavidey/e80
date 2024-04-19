@@ -43,34 +43,17 @@ lt_salinity = 1000 * lt_saltMass ./ (lt_saltMass + lt_waterMass); % [ppt]
 lt_gain = lt_vout ./ lt_vin;
 
 % more low temp resolution trials
-x_waterMass = [81.1 81.1 81.1 81.1 81.1 81.1 81.1 69.1 69.1 69.1 69.1 69.1 69.1 69.1 89.7 89.7 89.7 89.7 89.7 89.7 89.7 81.1 81.1 81.1 81.1 81.1 81.1 81.1];
-x_saltMass = [0.8 0.8
-0.8
-0.8
-0.8
-0.8
-0.8
-1.6
-1.6
-1.6
-1.6
-1.6
-1.6
-1.6
-3.8
-3.83.8 3.8 3.8 3.8 3.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8
-
-]
-x_temp =
-x_vout =
-x_vin = 
-
-x_slainity = 1000 * x_saltMass ./ (x_saltMass + x_waterMass);
+x_waterMass = [38.0 38.0 38.0 38.0 38.0 38.0 38.0 69.1 69.1 69.1 69.1 69.1 69.1 69.1 89.7 89.7 89.7 89.7 89.7 89.7 89.7 81.1 81.1 81.1 81.1 81.1 81.1 81.1];
+x_saltMass = [1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.6 1.6 1.6 1.6 1.6 1.6 1.6 3.8 3.8 3.8 3.8 3.8 3.8 3.8 0.8 0.8 0.8 0.8 0.8 0.8 0.8];
+x_temp = [9.8 14.6 19.4 24.6 30.4 35.2 39.8 11.0 14.8 19.9 24.3 29.7 35.0 40.5 10 15.1 20.1 25.0 29.9 34.8 40.6 10.1 15.3 20.1 25.0 30.0 35.2 39.5];
+x_vout =[1.955 1.987 2.016 2.042 2.088 2.097 2.139 1.994 2.008 2.053 2.070 2.092 2.142 2.162 2.075 2.094 2.147 2.188 2.182 2.212 2.225 1.735 1.758 1.835 1.867 1.908 1.938 2.021];
+x_vin = [1.500 1.496 1.494 1.489 1.485 1.484 1.481 1.491 1.490 1.486 1.485 1.484 1.479 1.477 1.500 1.484 1.486 1.491 1.479 1.479 1.472 1.534 1.533 1.521 1.519 1.515 1.509 1.496];
+x_salinity = 1000 * x_saltMass ./ (x_saltMass + x_waterMass);
 x_gain = x_vout ./ x_vin;
 
-salinity = [ht_salinity lt_salinity];
-temp = [ht_temp lt_temp];
-gain = [ht_gain lt_gain];
+salinity = [ht_salinity lt_salinity x_salinity];
+temp = [ht_temp lt_temp x_temp];
+gain = [ht_gain lt_gain x_gain];
 
 
 
@@ -80,43 +63,46 @@ figure(1)
 clf
 hold on
 view(3)
-scatter3(salinity, temp, gain, 'filled', 'SizeData', 100)
-[X, Y] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100));
-Z = griddata(salinity, temp, gain, X, Y, "cubic");
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100)
+[X, Y] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100));
+Z = griddata(gain, temp, salinity, X, Y, "cubic");
 surf(X, Y, Z);
-
-xlabel("Salinity [ppt]")
+title("grid data fit")
+xlabel("Gain")
 ylabel("Temp [C]")
-zlabel("Gain")
+zlabel("Salinity [ppt]")
 hold off
 
 %trying to do polynomial fit here
 % 2nd/3rd degree
+
 figure(2)
 clf
+subplot(1, 2, 1);
 hold on
 view(3)
-scatter3(salinity, temp, gain, 'filled', 'SizeData', 100);
-[x,y,z] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100), linspace(min(gain), max(gain), 100));
-[Zpoly23, gof23] = fit([salinity' temp'], gain', 'poly23')
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
+[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
+[Zpoly23, gof23] = fit([gain' temp'], salinity', 'poly23')
 plot(Zpoly23);
-title("poly23")
-xlabel("Salinity [ppt]")
+hold off
+title("poly23 fit")
+xlabel("Gain")
 ylabel("Temp [C]")
-zlabel("Gain")
+zlabel("Salinity [ppt]")
 
 
-% % 3rd/4th degree
-% subplot(1, 2, 2);
-% view(3)
-% scatter3(salinity, temp, gain, 'filled', 'SizeData', 100);
-% [x,y,z] = meshgrid(linspace(min(salinity), max(salinity), 100), linspace(min(temp), max(temp), 100), linspace(min(gain), max(gain), 100));
-% [Zpoly34, gof34] = fit([salinity' temp'], gain', 'poly34')
-% plot(Zpoly34);
-% title("poly34")
-% xlabel("Salinity [ppt]")
-% ylabel("Temp [C]")
-% zlabel("Gain")
-% hold off
-
+% 3rd/4th degree
+subplot(1, 2, 2);
+hold on
+view(3)
+scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
+[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
+[Zpoly34, gof34] = fit([gain' temp'], salinity', 'poly34')
+plot(Zpoly34);
+title("poly34 fit")
+xlabel("Gain")
+ylabel("Temp [C]")
+zlabel("Salinity [ppt]")
+hold off
 
