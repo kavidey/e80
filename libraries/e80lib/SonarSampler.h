@@ -33,7 +33,7 @@ private:
   String basename = "sonar_0";
   String filename = "";
   const int TIME_INDEX = 0;
-  const int pinMap[NUM_BURST_PINS] = {17, 27};
+  const int pinMap[NUM_BURST_PINS] = {17, 24};
 };
 
 #endif

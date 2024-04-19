@@ -91,6 +91,18 @@ void setup() {
 
   xy_state_estimator.init();
 
+  // Sonar Setup
+  pinMode(TRIGGER_PIN, OUTPUT);
+  pinMode(MODE_PIN, OUTPUT);
+
+  digitalWrite(TRIGGER_PIN, HIGH);
+  digitalWrite(MODE_PIN, HIGH);
+
+  sampleSonar();
+
+  // Salinity Setup
+  salinity_sampler.sample();
+
   printer.printMessage("Starting main loop", 10);
   loopStartTime = millis();
   printer.lastExecutionTime = loopStartTime - LOOP_PERIOD + PRINTER_LOOP_OFFSET;
@@ -102,15 +114,6 @@ void setup() {
   surface_control.lastExecutionTime =
       loopStartTime - LOOP_PERIOD + SURFACE_CONTROL_LOOP_OFFSET;
   logger.lastExecutionTime = loopStartTime - LOOP_PERIOD + LOGGER_LOOP_OFFSET;
-
-  // Sonar Setup
-  pinMode(18, OUTPUT);
-  pinMode(19, OUTPUT);
-
-  digitalWrite(18, HIGH);
-  digitalWrite(19, HIGH);
-
-  sampleSonar();
 }
 
 //////////////////////////////* Loop */////////////////////////
@@ -178,7 +181,7 @@ void loop() {
   gps.read(
       &GPS); // blocking UART calls, need to check for UART data every cycle
 
-  if (lastSonarTime > 1000 * 10) {
+  if (currentTime - lastSonarTime > 1000 * 5) {
     lastSonarTime = millis();
     sampleSonar();
   }
@@ -192,7 +195,6 @@ void loop() {
     led.lastExecutionTime = currentTime;
     led.flashLED(&gps.state);
     salinity_sampler.sample();
-    sonar_sampler.sample();
   }
 
   if (currentTime - logger.lastExecutionTime > LOOP_PERIOD &&
@@ -209,12 +211,11 @@ void EFB_Detected(void) { EF_States[1] = 0; }
 void EFC_Detected(void) { EF_States[2] = 0; }
 
 void sampleSonar(void) {
-  printer.printMessage("Sampling Sonar", 10);
-  digitalWrite(19, LOW);
+  digitalWrite(TRIGGER_PIN, LOW);
   sonar_sampler.sample();
-  digitalWrite(18, LOW);
+  digitalWrite(MODE_PIN, LOW);
   sonar_sampler.sample();
 
-  digitalWrite(18, HIGH);
-  digitalWrite(19, HIGH);
+  digitalWrite(TRIGGER_PIN, HIGH);
+  digitalWrite(MODE_PIN, HIGH);
 }

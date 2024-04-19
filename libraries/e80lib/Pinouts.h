@@ -38,6 +38,10 @@
 #define SPEAKER_PIN 20
 #define MIC_PIN 23
 
+// Sonar Control
+#define TRIGGER_PIN 31
+#define MODE_PIN 33
+
 // Depth Control
 #define PRESSURE_PIN 14 // Teensy pin A00
 
