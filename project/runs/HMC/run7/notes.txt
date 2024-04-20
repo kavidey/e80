@@ -1,0 +1,2 @@
+run 1:
+tank room test
