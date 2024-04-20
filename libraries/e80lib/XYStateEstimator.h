@@ -48,8 +48,11 @@ private:
   // const float origin_lon = -117.7049179;
 
   
-  const float origin_lat = 33.4627342;
-  const float origin_lon = -117.7052917;
+  // const float origin_lat = 33.4627342;
+  // const float origin_lon = -117.7052917;
+
+  const float origin_lat = 33.4620323;
+  const float origin_lon = -117.7058029;
 
   bool gpsAcquired;
 
