@@ -78,10 +78,10 @@ void setup() {
   sonar_sampler.init();
 
   int navigateDelay =
-      0; // how long robot will stay at surface waypoint before continuing (ms)
+      10000; // how long robot will stay at surface waypoint before continuing (ms)
 
   const int num_surface_waypoints = 2; // Set to 0 if only doing depth control
-  double surface_waypoints[] = {0, -10, 0, 0}; // out and back
+  double surface_waypoints[] = {-10, -50, 0, 40}; // out and back
   // double surface_waypoints[] = {2, -2, 2, -4, 0, -4, 0, -2, 0, 0}; // square
   // double surface_waypoints[] = {0, -3, 1, -3, 2, -3, 3, -3, 3, -2, 2, -2, 1,
   // -2, 1, -1, 2, -1, 3, -1, 3, 0, 2, 0, 1, 0}; // grid used to be {125, -40,
@@ -155,7 +155,9 @@ void loop() {
 
   if (currentTime - adc.lastExecutionTime > LOOP_PERIOD) {
     adc.lastExecutionTime = currentTime;
+    motor_driver.drive(0, 0, 0);
     adc.updateSample();
+    motor_driver.drive(surface_control.uL, surface_control.uR, 0);
   }
 
   if (currentTime - ef.lastExecutionTime > LOOP_PERIOD) {
@@ -181,7 +183,7 @@ void loop() {
   gps.read(
       &GPS); // blocking UART calls, need to check for UART data every cycle
 
-  if (currentTime - lastSonarTime > 1000 * 5) {
+  if (currentTime - lastSonarTime > 1000 * 6) {
     lastSonarTime = millis();
     sampleSonar();
   }
@@ -211,6 +213,7 @@ void EFB_Detected(void) { EF_States[1] = 0; }
 void EFC_Detected(void) { EF_States[2] = 0; }
 
 void sampleSonar(void) {
+  motor_driver.drive(0, 0, 0);
   digitalWrite(TRIGGER_PIN, LOW);
   sonar_sampler.sample();
   digitalWrite(MODE_PIN, LOW);
@@ -218,4 +221,5 @@ void sampleSonar(void) {
 
   digitalWrite(TRIGGER_PIN, HIGH);
   digitalWrite(MODE_PIN, HIGH);
+  motor_driver.drive(surface_control.uL, surface_control.uR, 0);
 }

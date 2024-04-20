@@ -11,7 +11,7 @@ void setup() {
   digitalWrite(33, HIGH);
 }
 
-#define ANALOG_PIN 24
+#define ANALOG_PIN 25
 #define READ_BUFFER 100
 #define BUFFER_SIZE 10000
 

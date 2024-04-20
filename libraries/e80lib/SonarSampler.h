@@ -21,7 +21,7 @@ public:
   int lastExecutionTime = -1;
 
 private:
-  node *headarray[NUM_BURST_PINS + 1] = {NULL};
+  node *headarray[SR_NUM_BURST_PINS + 1] = {NULL};
 
   // helper func
   void update(void);
@@ -33,7 +33,7 @@ private:
   String basename = "sonar_0";
   String filename = "";
   const int TIME_INDEX = 0;
-  const int pinMap[NUM_BURST_PINS] = {17, 24};
+  const int pinMap[SR_NUM_BURST_PINS] = {17, 24};
 };
 
 #endif

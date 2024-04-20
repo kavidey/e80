@@ -43,8 +43,11 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
       return; // stops motors at surface waypoint
     }
 
+    yaw = state->yaw;
+
     // set up variables
-    int x_des = getWayPoint(0);
+    // int x_des = getWayPoint(0);
+    int x_des = state->x;
     int y_des = getWayPoint(1);
 
     // Set the values of yaw_des, yaw, yaw_error, control effort (u), uL, and uR appropriately for P control
@@ -53,8 +56,13 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     // You can access the yaw calculated in XYStateEstimator.cpp using state->yaw
 
     // atan2 helps to determine location from two possible options (tan function)
-    yaw_des = atan2(y_des - state->y, x_des - state->x);
-    yaw_error = yaw_des - state->yaw;
+    // yaw_des = atan2(y_des - state->y, x_des - state->x);
+    if (state->y < y_des) {
+      yaw_des = 2.16;
+    } else {
+      yaw_des = -2.16;
+    }
+    yaw_error = angleDiff(yaw_des - yaw);
     u = Kp*yaw_error;
     uR = avgPower + u;
     uL = avgPower - u;
@@ -64,8 +72,8 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     uL = uL*Kl;
 
     // Bounds uR and uL so they are between 0 and 127
-    uR = min(max(0, uR), 127);
-    uL = min(max(0, uL), 127);
+    uR = min(max(0, uR), 255);
+    uL = min(max(0, uL), 255);
     
   }
   else {
