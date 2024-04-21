@@ -48,9 +48,10 @@ f = k*f0;
 % Write resistance to salinity code (will require voltage to resistance code)
 % 
 % Write matlab function that takes two lists of 100 measurements (100 of the input, 100 of the output) and calculates the resistance of the probe
+    % this is done! see salinity resistance calculator
 % Write matlab function that takes probe resistance and calculates salinity
 % This can either be based on the physics or just the result of a fit
-% 
+     % the fit is done! see salinity_calibration.m
 % 1. take the fourier transform of both signals
 % 2. find the magnitude of the frequency bin that corresponds to frequency of the phase shift oscillator (those magnitudes are vin and vout of the voltage divider)
 % 3. use the voltage divider formula and known resistance of r2 (~67 ohm) to determine the resistance of the salinity sensor

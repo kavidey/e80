@@ -1,4 +1,8 @@
-% all voltages are peak-to-peak
+% all voltages are peak-to-peak; enter data in 4 arrays below
+clear
+clc
+clf
+
 Vindiv = [1.52
 1.5
 1.50
@@ -8,9 +12,6 @@ Vindiv = [1.52
 1.48
 1.48
 1.48];
-Rin1 = 10070
-Rin2 = 14760
-Vin = Vindiv/(Rin2/(Rin1+Rin2));
 
 Vout = [1.86
 1.98
@@ -21,8 +22,6 @@ Vout = [1.86
 2.12
 2.15
 2.18];
-R2 = 67;
-Rprobe = (Vin-Vout)*R2./Vout;
 
 waterMasses = [81.1
 55.4
@@ -33,6 +32,7 @@ waterMasses = [81.1
 58.4
 60.6
 89.7];
+
 saltMasses = [0.8
 0.8
 1.0
@@ -42,6 +42,16 @@ saltMasses = [0.8
 2.0
 2.3
 3.8];
+
+% process datta here
+
+Rin1 = 10070
+Rin2 = 14760
+Vin = Vindiv/(Rin2/(Rin1+Rin2));
+
+R2 = 67;
+Rprobe = (Vin-Vout)*R2./Vout;
+
 salinity = saltMasses./(saltMasses+waterMasses);
 
 hold on

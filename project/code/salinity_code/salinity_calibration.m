@@ -1,4 +1,9 @@
 clc
+
+clear
+
+clf
+
 % High Salinity Resolution Trials
 hs_waterMass = [81.1 55.4 55.6 69.1 38.0 56.6 58.4 60.6 89.7]; % [mL]
 hs_saltMass = [0.8 0.8 1.0 1.6 1.0 1.9 2.0 2.3 3.8]; % [g]
@@ -106,3 +111,4 @@ ylabel("Temp [C]")
 zlabel("Salinity [ppt]")
 hold off
 
+save('salinityfits', 'Zpoly23', 'Zpoly34');
