@@ -11,9 +11,9 @@ void setup() {
   digitalWrite(33, HIGH);
 }
 
-#define ANALOG_PIN 17
+#define ANALOG_PIN 24
 #define READ_BUFFER 100
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 100000
 
 unsigned short val;
 int read_index;
@@ -34,7 +34,7 @@ void loop() {
   for(int i=0;i<read_index;i++) {request_size += 10^i * request[i]; }
   delay(100);
   digitalWrite(31, LOW);
-  digitalWrite(33, HIGH);
+  digitalWrite(33, LOW);
   for(int i=0; i<BUFFER_SIZE; i++) {   // WE ARE IGNORING THE REQUEST HERE!
     val=analogRead(ANALOG_PIN);
     val=analogRead(ANALOG_PIN);
