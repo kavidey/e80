@@ -31,8 +31,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 1/salinity_014", 3);
+[salinity, salinity_time] = process_salinity("Dana Point/run 1/salinity_014", 3, 16);
 plot(salinity_time, salinity)
+ylim([0, 60])
 
 %% run 2 (contains 016) only temp
 % still only temp working, but measuring several degrees too high - ignore (seems like robot never went in water?)
@@ -65,8 +66,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 3/salinity_018", 4);
+[salinity, salinity_time] = process_salinity("Dana Point/run 3/salinity_018", 4, 16);
 plot(salinity_time, salinity)
+ylim([0, 60])
 
 %% run 4 (contains 022) only temp
 % temp and gps both look pretty good!!
@@ -84,9 +86,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 4/salinity_022", 4);
+[salinity, salinity_time] = process_salinity("Dana Point/run 4/salinity_022", 4, 16);
 plot(salinity_time, salinity)
-
+ylim([0, 60])
 %% run 5 (contains 029) temp and salinity, gps is rlly messed up
 [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,u,uL,uR,yaw,yaw_des,motorA,motorB,motorC,Current_Sense,A00,A01,A02,A03,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,ErrorFlagA,ErrorFlagB,ErrorFlagC] = read_data('run_029', 'Dana Point/run 5');
 time = double(A14) * 1e-3;
@@ -102,9 +104,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 5/salinity_029", 4);
+[salinity, salinity_time] = process_salinity("Dana Point/run 5/salinity_029", 4, 16);
 plot(salinity_time, salinity)
-
+ylim([0, 60])
 %% run 6 (contains 030) sonar only, gps is really messed up
 [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,u,uL,uR,yaw,yaw_des,motorA,motorB,motorC,Current_Sense,A00,A01,A02,A03,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,ErrorFlagA,ErrorFlagB,ErrorFlagC] = read_data('run_030', 'Dana Point/run 6');
 time = double(A14) * 1e-3;
@@ -116,7 +118,7 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 6/sonar_030", 90);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
 
 %% run 7 (contains 033) sonar only, looks a bit wonky
 [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,u,uL,uR,yaw,yaw_des,motorA,motorB,motorC,Current_Sense,A00,A01,A02,A03,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,ErrorFlagA,ErrorFlagB,ErrorFlagC] = read_data('run_033', 'Dana Point/run 7');
@@ -129,7 +131,7 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 7/sonar_033", 90);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
 
 %% runs 8-9 (contains 034-039) sonar only
 % 034 nothing
@@ -146,7 +148,7 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 8-9/sonar_039", 90);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
 
 %% run 10 (contains 000-010, note that salinity+sonar are one number ahead) temp and salinity
 % 009-000 (010-000) nothing
@@ -165,9 +167,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 10/salinity_011", 4);
+[salinity, salinity_time] = process_salinity("Dana Point/run 10/salinity_011", 4, 16);
 plot(salinity_time, salinity)
-
+ylim([0, 60])
 %% run 11 (contains 011, note that salinity+sonar are one number ahead) temp and salinity, tested at dock area
 % definitely something weird happening with temperature
 % possibly an issue with salinity too
@@ -185,9 +187,9 @@ plot(time, VtoT(temp_voltage));
 ylim([0 25])
 
 nexttile
-[salinity, salinity_time] = process_salinity("Dana Point/run 11/salinity_012", 4);
+[salinity, salinity_time] = process_salinity("Dana Point/run 11/salinity_012", 4, 16.4);
 plot(salinity_time, salinity)
-
+ylim([0, 60])
 %% run 12 (contains 012, note that salinity+sonar are one number ahead) sonar only
 % sonar didn't work, as expected because its to deep
 % [rollIMU,pitchIMU,headingIMU,accelX,accelY,accelZ,magX,magY,magZ,lat,lon,nsats,x,y,u,uL,uR,yaw,yaw_des,motorA,motorB,motorC,Current_Sense,A00,A01,A02,A03,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,ErrorFlagA,ErrorFlagB,ErrorFlagC] = read_data('run_012', 'Dana Point/run 12');
@@ -215,7 +217,7 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 13/sonar_018", 90);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
 
 %% run 14 (contains 018, note that salinity+sonar are one number ahead) sonar only
 % sonar needs more tuning for TOF
@@ -230,7 +232,7 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 14/sonar_019", 45);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
 
 %% run 15 (contains 025, note that salinity+sonar are one number ahead) sonar only
 % sonar needs more tuning for TOF
@@ -246,4 +248,4 @@ geobasemap satellite
 
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 15/sonar_026", 45);
-plot(dist_time, -dist);
+scatter(dist_time, -dist);
