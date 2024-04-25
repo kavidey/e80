@@ -34,7 +34,7 @@ for i = 0:(num_samples-1)
     true_vout = max(X2);
     %L1 vin L2 vout new_t is time 
     Gain = true_vout/true_vin;
-    salinity = [salinity Zpoly23(Gain, temp)];
+    salinity = [salinity min(Zpoly23(Gain, temp), 100)];
 end
 
 end
