@@ -64,51 +64,118 @@ gain = [ht_gain lt_gain x_gain];
 
 
 % griddata fit
-figure(1)
-clf
-hold on
-view(3)
-scatter3(gain, temp, salinity, 'filled', 'SizeData', 100)
-[X, Y] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100));
-Z = griddata(gain, temp, salinity, X, Y, "cubic");
-surf(X, Y, Z);
-title("grid data fit")
-xlabel("Gain")
-ylabel("Temp [C]")
-zlabel("Salinity [ppt]")
-hold off
+% figure(1)
+% clf
+% hold on
+% view(3)
+% scatter3(gain, temp, salinity, 'filled', 'SizeData', 100)
+% [X, Y] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100));
+% Z = griddata(gain, temp, salinity, X, Y, "cubic");
+% surf(X, Y, Z);
+% title("grid data fit")
+% xlabel("Gain")
+% ylabel("Temp [C]")
+% zlabel("Salinity [ppt]")
+% hold off
 
 %trying to do polynomial fit here
 % 2nd/3rd degree
 
-figure(2)
+[Zpoly23, gof23] = fit([gain' temp'], salinity', 'poly23','normalize','on');
+% figure(2)
 clf
-subplot(1, 2, 1);
+tiledlayout('TileSpacing','tight','Padding','tight')
+nexttile([2 2])
+% subplot(1, 2, 1);
 hold on
-view(3)
-scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
-[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
-[Zpoly23, gof23] = fit([gain' temp'], salinity', 'poly23')
-plot(Zpoly23);
+% view(3)
+xpts = linspace(min(gain), max(gain), 100);
+ypts = linspace(min(temp), max(temp), 100);
+[x,y] = meshgrid(xpts, ypts);
+p11 = predint(Zpoly23, [reshape(x, 100*100, []) reshape(y, 100*100, [])], 0.95, 'Observation', 'off');
+p21 = predint(Zpoly23, [reshape(x, 100*100, []) reshape(y, 100*100, [])], 0.95, 'Functional', 'off');
+% plot(Zpoly23,[gain' temp'], salinity', 'Style', 'predfunc');
+contourf(xpts, ypts, Zpoly23(x, y), 1000, 'LineColor','none', "DisplayName", "Best Fit");
+scatter(gain, temp, salinity, 'filled', 'k', 'SizeData', 50, 'DisplayName', "Data Points");
+% contour(xpts, ypts, p11(:, 1), 20, 'LineColor', 'k')
+
+% p11_upper = reshape(p11(:, 1), 100, 100);
+% p11_lower = reshape(p11(:, 2), 100, 100);
+% p21_upper = reshape(p21(:, 1), 100, 100);
+% p21_lower = reshape(p21(:, 2), 100, 100);
+% contour(xpts, ypts, p11_upper, 'LineColor', 'r');
+
+
+const_temp = 16; %[C]
+const_probe_gain = 1.41; % Gain
+yline(const_temp, '--', 'LineWidth', 1.5, "DisplayName", sprintf("Slice: Temperature = %.2f [C]", const_temp))
+xline(const_probe_gain, '-.', 'LineWidth', 1.5, "DisplayName", sprintf("Slice: Gain = %.2f", const_probe_gain))
+
+contour(xpts, ypts, Zpoly23(x, y), 20, 'LineColor', 'k', 'LineWidth', 1.2)
+
 hold off
-title("poly23 fit")
-xlabel("Gain")
+cb = colorbar(); 
+ylabel(cb,'Salinity [ppt]','Rotation',270)
+title("Salinity Calibration")
+h=get(gca,'Children');
+legend(h(2:end), "Location", "northwest")
+xlabel("Probe Gain")
 ylabel("Temp [C]")
 zlabel("Salinity [ppt]")
+pbaspect([1 1 1])
 
+nexttile
+xplot = linspace(min(gain), max(gain), 100);
+p11 = predint(Zpoly23, [xplot' ones(size(xpts))'*const_temp], 0.95, 'Observation', 'off');
+p21 = predint(Zpoly23, [xplot' ones(size(xpts))'*const_temp], 0.95, 'Functional', 'off');
+hold on
+plot(xplot, Zpoly23(xplot, ones(size(xpts))*const_temp))
+plot(xplot, p21, '-.b') % Upper and lower functional confidence limits
+plot(xplot, p11, '--m') % Upper and lower observational confidence limits
+hold off
+hL = legend('Best Fit Line','Upper Func. Bound',...
+    'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
+    'Location', 'best')
+hL.Layout.Tile = 'East';
+t = title(sprintf("Salinity Calibration Slice: Temperature = %.2f C", const_temp))
+set(t,'Position',get(t,'Position')+[0 12 0]);  % move up slightly
+xlabel("Probe Gain")
+ylabel("Salinity [ppt]")
+
+nexttile
+xplot = linspace(min(temp), max(temp), 100);
+p11 = predint(Zpoly23, [ones(size(xplot))'*const_probe_gain xplot'], 0.95, 'Observation', 'off');
+p21 = predint(Zpoly23, [ones(size(xplot))'*const_probe_gain xplot'], 0.95, 'Functional', 'off');
+hold on
+plot(xplot, Zpoly23(ones(size(xplot))*const_probe_gain, xplot))
+plot(xplot, p21, '-.b') % Upper and lower functional confidence limits
+plot(xplot, p11, '--m') % Upper and lower observational confidence limits
+hold off
+% legend('Best Fit Line','Upper Func. Bound',...
+%     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
+%     'Location', 'best')
+t = title(sprintf("Salinity Calibration Slice: Probe Gain = %.2f", const_probe_gain))
+set(t,'Position',get(t,'Position')+[0 1.5 0]);  % move up slightly
+xlabel("Temperature [C]")
+ylabel("Salinity [ppt]")
+
+set(gcf, "Color", 'w')
+fontsize(gcf, 20, "points")
+
+exportgraphics(gca,'salinity_calibration.eps','BackgroundColor','none', 'Resolution', 300)
 
 % 3rd/4th degree
-subplot(1, 2, 2);
-hold on
-view(3)
-scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
-[x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
-[Zpoly34, gof34] = fit([gain' temp'], salinity', 'poly34')
-plot(Zpoly34);
-title("poly34 fit")
-xlabel("Gain")
-ylabel("Temp [C]")
-zlabel("Salinity [ppt]")
-hold off
+% subplot(1, 2, 2);
+% hold on
+% view(3)
+% scatter3(gain, temp, salinity, 'filled', 'SizeData', 100);
+% [x,y,z] = meshgrid(linspace(min(gain), max(gain), 100), linspace(min(temp), max(temp), 100), linspace(min(salinity), max(salinity), 100));
+% [Zpoly34, gof34] = fit([gain' temp'], salinity', 'poly34')
+% plot(Zpoly34);
+% title("poly34 fit")
+% xlabel("Gain")
+% ylabel("Temp [C]")
+% zlabel("Salinity [ppt]")
+% hold off
 
-save('salinityfits', 'Zpoly23', 'Zpoly34');
+% save('salinityfits', 'Zpoly23', 'Zpoly34');
