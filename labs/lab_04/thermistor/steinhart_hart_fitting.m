@@ -98,21 +98,30 @@ hold off
 % original space with T vs R and see how good we feel about things.
 yplot = f3(xplot);
 figure(5)
-plot(R,T,'x')
+set(0,'DefaultLineLineWidth',1.5)
+plot(R,T,'x', 'MarkerSize', 20)
 hold on
 % plot(exp(xplot), 1 ./ (A + log(exp(xplot)) * B + (log(exp(xplot)).^2) * C + (log(exp(xplot)).^3) * D))
 R0 = 47000; % from datasheet
 T0 = 293.15; % reference temp is 25C, negligible uncertainty
 B = 4050; % in Kelvin, from 25 to 50 C
-calc_T = @(r) (B * T0) ./ (B + T0.*(log(r/R0)));
-plot(R, calc_T(R));
+% calc_T = @(r) (B * T0) ./ (B + T0.*(log(r/R0)));
+% plot(R, calc_T(R));
 plot(exp(xplot), 1./yplot)
 plot(exp(xplot), 1./p21, '-.b') % Upper and lower functional confidence limits
 plot(exp(xplot), 1./p11, '--m') % Upper and lower observational confidence limits
-legend('Data Points','Pred. from datasheet','Best Fit Line','Upper Func. Bound',...
+% legend('Data Points','Pred. from datasheet','Best Fit Line','Upper Func. Bound',...
+%     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
+%     'Location', 'northeast')
+legend('Data Points','Best Fit Line','Upper Func. Bound',...
     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
     'Location', 'northeast')
 xlabel('Resistance (\Omega)')
 ylabel('Temperature (K)')
-title('Retransformed 3rd-Order with Fit Lines')
+title('Steinhart-Hart Thermistor Calibration')
 hold off
+
+set(gcf, "Color", 'w')
+fontsize(gcf, 20, "points")
+
+exportgraphics(gca,'thermistor_calibration.eps','BackgroundColor','none', 'Resolution', 300)
