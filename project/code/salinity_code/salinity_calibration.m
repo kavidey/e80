@@ -124,14 +124,15 @@ ylabel("Temp [C]")
 zlabel("Salinity [ppt]")
 pbaspect([1 1 1])
 
+lw = 1.5;
 nexttile
 xplot = linspace(min(gain), max(gain), 100);
 p11 = predint(Zpoly23, [xplot' ones(size(xpts))'*const_temp], 0.95, 'Observation', 'off');
 p21 = predint(Zpoly23, [xplot' ones(size(xpts))'*const_temp], 0.95, 'Functional', 'off');
 hold on
-plot(xplot, Zpoly23(xplot, ones(size(xpts))*const_temp))
-plot(xplot, p21, '-.b') % Upper and lower functional confidence limits
-plot(xplot, p11, '--m') % Upper and lower observational confidence limits
+plot(xplot, Zpoly23(xplot, ones(size(xpts))*const_temp), 'LineWidth', lw)
+plot(xplot, p21, '-.b', 'LineWidth', lw) % Upper and lower functional confidence limits
+plot(xplot, p11, '--m', 'LineWidth', lw) % Upper and lower observational confidence limits
 hold off
 hL = legend('Best Fit Line','Upper Func. Bound',...
     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...
@@ -147,9 +148,9 @@ xplot = linspace(min(temp), max(temp), 100);
 p11 = predint(Zpoly23, [ones(size(xplot))'*const_probe_gain xplot'], 0.95, 'Observation', 'off');
 p21 = predint(Zpoly23, [ones(size(xplot))'*const_probe_gain xplot'], 0.95, 'Functional', 'off');
 hold on
-plot(xplot, Zpoly23(ones(size(xplot))*const_probe_gain, xplot))
-plot(xplot, p21, '-.b') % Upper and lower functional confidence limits
-plot(xplot, p11, '--m') % Upper and lower observational confidence limits
+plot(xplot, Zpoly23(ones(size(xplot))*const_probe_gain, xplot), 'LineWidth', lw)
+plot(xplot, p21, '-.b', 'LineWidth', lw) % Upper and lower functional confidence limits
+plot(xplot, p11, '--m', 'LineWidth', lw) % Upper and lower observational confidence limits
 hold off
 % legend('Best Fit Line','Upper Func. Bound',...
 %     'Lower Func. Bound', 'Upper Obs. Bound', 'Lower Obs. Bound',...

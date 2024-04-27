@@ -167,6 +167,8 @@ geobasemap satellite
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 6/sonar_030", 90);
 scatter(dist_time, -dist);
+xlabel("Time [s]")
+ylabel("Ocean Depth [m]")
 
 nexttile
 [x, y] = process_gps(lat(lat ~= 0), lon(lat ~= 0), lat_origin, lon_origin);
@@ -223,6 +225,8 @@ geobasemap satellite
 nexttile
 [dist, dist_time] = process_sonar("Dana Point/run 8-9/sonar_039", 90);
 scatter(dist_time, -dist);
+xlabel("Time [s]")
+ylabel("Ocean Depth [m]")
 
 nexttile
 [x, y] = process_gps(lat(lat ~= 0), lon(lat ~= 0), lat_origin, lon_origin);
